@@ -1,6 +1,8 @@
 
 
 import 'package:flutter/material.dart';
+import "package:provider/provider.dart";
+import 'package:enable/providers/my_provider.dart';
 
 class CityManagerPage extends StatefulWidget {
   @override
@@ -33,6 +35,13 @@ class _CityManagerPageState extends State<CityManagerPage> {
               ),
               Container(
                 child: TextFormField(),
+              ), RaisedButton(
+                child: Text("Submit"),
+                onPressed: () {
+                  MainProvider model = Provider.of(context);
+                  print("YOYOYO");
+                  model.sendNOCData({"AC": "AV"});
+                },
               ),
             ],
           ),

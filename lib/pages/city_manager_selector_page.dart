@@ -1,35 +1,35 @@
 import 'package:enable/pages/city_manager_page.dart';
-import 'package:enable/pages/city_manager_selector_page.dart';
-import 'package:enable/pages/traffic_police_selector_page.dart';
+import 'package:enable/pages/form/accident_form.dart';
 import 'package:flutter/material.dart';
 
-class HomePageSelector extends StatefulWidget {
+class CityManagerSelectorPage extends StatefulWidget {
   @override
-  _HomePageSelectorState createState() => _HomePageSelectorState();
+  _CityManagerSelectorPageState createState() =>
+      _CityManagerSelectorPageState();
 }
 
-class _HomePageSelectorState extends State<HomePageSelector> {
+class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
   List<Widget> buttonList() {
     return <Widget>[
       ClipOval(
-              child: Container(
+        child: Container(
           width: MediaQuery.of(context).size.height * 0.30,
           height: MediaQuery.of(context).size.height * 0.30,
           child: RaisedButton(
             child: Text(
-              "Traffic Police",
+              "Encroachment",
               textScaleFactor: 1.5,
               style: TextStyle(
                 color: Colors.white,
               ),
             ),
             color: Colors.red,
-            shape: CircleBorder(),
+            // shape: CircleBorder(),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return TrafficPolicePageSelector();
+                  return AccidentFormPage();
                 }),
               );
             },
@@ -41,15 +41,12 @@ class _HomePageSelectorState extends State<HomePageSelector> {
         height: 50.0,
       ),
       ClipOval(
-              child: Container(
+        child: Container(
           width: MediaQuery.of(context).size.height * 0.30,
           height: MediaQuery.of(context).size.height * 0.30,
-
-          // alignment: Alignment.center,
           child: RaisedButton(
-            shape: CircleBorder(),
             child: Text(
-              "City Manager",
+              "Water Logging/Pot Holes",
               textScaleFactor: 1.5,
               style: TextStyle(
                 color: Colors.white,
@@ -60,7 +57,35 @@ class _HomePageSelectorState extends State<HomePageSelector> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return CityManagerSelectorPage();
+                  return CityManagerPage();
+                }),
+              );
+            },
+          ),
+        ),
+      ),
+      SizedBox(
+        width: 50.0,
+        height: 50.0,
+      ),
+      ClipOval(
+        child: Container(
+          width: MediaQuery.of(context).size.height * 0.30,
+          height: MediaQuery.of(context).size.height * 0.30,
+          child: RaisedButton(
+            child: Text(
+              "Traffic Light",
+              textScaleFactor: 1.5,
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            color: Colors.yellow,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return CityManagerPage();
                 }),
               );
             },
@@ -74,7 +99,7 @@ class _HomePageSelectorState extends State<HomePageSelector> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Enable App"),
+        title: Text("City Manager : Type of Issue"),
       ),
       body: Container(
         alignment: Alignment.center,
