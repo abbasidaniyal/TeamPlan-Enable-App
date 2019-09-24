@@ -135,48 +135,12 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                   },
                 ),
               ),
-              // Container(
-              //     child: FormField(
-              //   onSaved: (s) {},
-              //   validator: (s) {},
-              //   builder: (FormFieldState<String> field) {
-              //     return PlacesAutocompleteField(
-              //       // context: context,
-              //       apiKey: "apiKey",
-              //       mode: Mode.fullscreen,
-              //       types: ["geocoding"],
-
-                    
-              //     );
-              //   },
-              // )),
-              LocationPicker(),
-              // FormField(
-              //   onSaved: (value){
-              //     data[value]=value;
-              //   },
-
-              // ),
-              // SearchMapPlaceWidget(
-              //   apiKey: "AIzaSyB0Gc0oMwH4e6jxEZl5I5AawxO7URILG08",
-              //   // language: 'en',
-              //   onSearch: (place) {
-              //     print(place.fullJSON.toString());
-              //   },
-              //   onSelected: (Place place) async {
-              //     print(place.description);
-              //     Geolocation geolocation = await place.geolocation;
-
-              //     // Will animate the GoogleMap camera, taking us to the selected position with an appropriate zoom
-              //   },
-              // ),
+              
+              LocationPickerFormField(),
+              
+              
               Container(
-                child: TextFormField(
-                  decoration: InputDecoration(labelText: "Location"),
-                ),
-              ),
-              Container(
-                child: TextFormField(),
+                child: DateTimeFormField(),
               ),
               RaisedButton(
                 child: Text("Submit"),
