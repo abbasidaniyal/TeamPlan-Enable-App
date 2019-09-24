@@ -1,7 +1,12 @@
+import 'package:enable/helpers/options.dart';
 import 'package:enable/pages/home_page.dart';
 import 'package:enable/providers/my_provider.dart';
+import 'package:enable/widgets/location_picket.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:google_maps_webservice/places.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 
 class AccidentFormPage extends StatefulWidget {
   @override
@@ -13,6 +18,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
   Map<String, dynamic> data = {};
 
   void submitForm() async {
+    print(data);
     if (_key.currentState.validate()) {
       _key.currentState.save();
       MainProvider model = Provider.of(context);
@@ -29,29 +35,9 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
     }
   }
 
-  List<String> districts = [
-    'Faraskhana',
-    'Koregaon',
-    'Kothrud',
-    'Lashkar',
-    'Sahakar Nagar',
-    'Samartha',
-    'Shivaji Nagar',
-    'Vishrambag',
-    'Yerwada',
-    'Chaturshrungi',
-    'Khadaki',
-    'Vimantal',
-    'Hadapsar',
-    'Wanwadi',
-    'Lashkar',
-    'Swargate',
-    'Bundgarden',
-    'Warje',
-    'Deccan',
-    'Dattawadi',
-    'Bharati Vidyapeeth',
-  ];
+  String selectedAccidentTypeValue;
+  String selectedDistrictValue;
+  String selectedAccidentReasonValue;
 
   @override
   Widget build(BuildContext context) {
@@ -66,17 +52,20 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
           child: ListView(
             children: <Widget>[
               Container(
-                // child: DropdownButtonFormField<String>(
-                child: DropdownButton(
-                  // onSaved: (x) {},
-                  // decoration:
-                  // InputDecoration(labelText: "District", enabled: true),
-                  // validator: (x) {
-                  //   if (x == null) return "Error";
-
-                  //   return null;
-                  // },
-                  items: districts.map((district) {
+                child: DropdownButtonFormField<String>(
+                  validator: (s) {
+                    if (s == null) return "Select District";
+                    return null;
+                  },
+                  decoration: InputDecoration(labelText: "Choose District"),
+                  value: selectedDistrictValue,
+                  onChanged: (s) {
+                    setState(() {
+                      selectedDistrictValue = s;
+                    });
+                  },
+                  items:
+                      districtsList.map<DropdownMenuItem<String>>((district) {
                     return DropdownMenuItem<String>(
                       child: Text(
                         district,
@@ -84,13 +73,107 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                       value: district,
                     );
                   }).toList(),
+                  onSaved: (selected) {
+                    data[selected] = selected;
+                  },
                 ),
               ),
               Container(
-                child: TextFormField(),
+                child: DropdownButtonFormField<String>(
+                  validator: (s) {
+                    if (s == null) return "Select Type of Accident";
+                    return null;
+                  },
+                  decoration:
+                      InputDecoration(labelText: "Choose Type of Accident"),
+                  value: selectedAccidentTypeValue,
+                  onChanged: (s) {
+                    setState(() {
+                      selectedAccidentTypeValue = s;
+                    });
+                  },
+                  items: typeOfAccident
+                      .map<DropdownMenuItem<String>>((accidentType) {
+                    return DropdownMenuItem<String>(
+                      child: Text(
+                        accidentType,
+                      ),
+                      value: accidentType,
+                    );
+                  }).toList(),
+                  onSaved: (selected) {
+                    data[selected] = selected;
+                  },
+                ),
               ),
               Container(
-                child: TextFormField(),
+                child: DropdownButtonFormField<String>(
+                  validator: (s) {
+                    if (s == null) return "Select Reason of Accident";
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "Choose Reason of Accident",
+                  ),
+                  value: selectedAccidentReasonValue,
+                  onChanged: (s) {
+                    setState(() {
+                      selectedAccidentReasonValue = s;
+                    });
+                  },
+                  items: reasonOfAccident
+                      .map<DropdownMenuItem<String>>((accidentReason) {
+                    return DropdownMenuItem<String>(
+                      child: Text(
+                        accidentReason,
+                      ),
+                      value: accidentReason,
+                    );
+                  }).toList(),
+                  onSaved: (selected) {
+                    data[selected] = selected;
+                  },
+                ),
+              ),
+              // Container(
+              //     child: FormField(
+              //   onSaved: (s) {},
+              //   validator: (s) {},
+              //   builder: (FormFieldState<String> field) {
+              //     return PlacesAutocompleteField(
+              //       // context: context,
+              //       apiKey: "apiKey",
+              //       mode: Mode.fullscreen,
+              //       types: ["geocoding"],
+
+                    
+              //     );
+              //   },
+              // )),
+              LocationPicker(),
+              // FormField(
+              //   onSaved: (value){
+              //     data[value]=value;
+              //   },
+
+              // ),
+              // SearchMapPlaceWidget(
+              //   apiKey: "AIzaSyB0Gc0oMwH4e6jxEZl5I5AawxO7URILG08",
+              //   // language: 'en',
+              //   onSearch: (place) {
+              //     print(place.fullJSON.toString());
+              //   },
+              //   onSelected: (Place place) async {
+              //     print(place.description);
+              //     Geolocation geolocation = await place.geolocation;
+
+              //     // Will animate the GoogleMap camera, taking us to the selected position with an appropriate zoom
+              //   },
+              // ),
+              Container(
+                child: TextFormField(
+                  decoration: InputDecoration(labelText: "Location"),
+                ),
               ),
               Container(
                 child: TextFormField(),

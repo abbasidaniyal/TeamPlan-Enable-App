@@ -19,6 +19,7 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
             child: Text(
               "Encroachment",
               textScaleFactor: 1.5,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -37,8 +38,11 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
         ),
       ),
       SizedBox(
-        width: 50.0,
-        height: 50.0,
+        width: MediaQuery.of(context).orientation == Orientation.landscape
+            ? 50
+            : 0,
+        height:
+            MediaQuery.of(context).orientation == Orientation.portrait ? 50 : 0,
       ),
       ClipOval(
         child: Container(
@@ -48,6 +52,7 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
             child: Text(
               "Water Logging/Pot Holes",
               textScaleFactor: 1.5,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -65,8 +70,11 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
         ),
       ),
       SizedBox(
-        width: 50.0,
-        height: 50.0,
+        width: MediaQuery.of(context).orientation == Orientation.landscape
+            ? 50
+            : 0,
+        height:
+            MediaQuery.of(context).orientation == Orientation.portrait ? 50 : 0,
       ),
       ClipOval(
         child: Container(
@@ -76,6 +84,7 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
             child: Text(
               "Traffic Light",
               textScaleFactor: 1.5,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -103,14 +112,8 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
       ),
       body: Container(
         alignment: Alignment.center,
-        width: MediaQuery.of(context).size.width >=
-                MediaQuery.of(context).size.height
-            ? MediaQuery.of(context).size.width * 40
-            : MediaQuery.of(context).size.width * 0.80,
-        height: MediaQuery.of(context).size.width >=
-                MediaQuery.of(context).size.height
-            ? MediaQuery.of(context).size.height * 0.5
-            : MediaQuery.of(context).size.height * 0.90,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           scrollDirection: MediaQuery.of(context).size.width >=
                   MediaQuery.of(context).size.height
@@ -118,14 +121,25 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
               : Axis.vertical,
           child: MediaQuery.of(context).size.width >=
                   MediaQuery.of(context).size.height
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: buttonList())
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: buttonList()),
+              ? Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.width * 0.10,
+                      horizontal: MediaQuery.of(context).size.width * 0.20),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: buttonList()))
+              : Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.1,
+                      horizontal: MediaQuery.of(context).size.width * 0.1),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: buttonList(),
+                  ),
+                ),
         ),
       ),
     );
