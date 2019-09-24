@@ -1,5 +1,6 @@
-import 'package:enable/pages/city_manager_page.dart';
+
 import 'package:enable/pages/form/accident_form.dart';
+import 'package:enable/pages/form/noc_form.dart';
 import 'package:flutter/material.dart';
 
 class TrafficPolicePageSelector extends StatefulWidget {
@@ -61,7 +62,6 @@ class _TrafficPolicePageSelectorState extends State<TrafficPolicePageSelector> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  
                 ),
               ),
             ),
@@ -70,7 +70,7 @@ class _TrafficPolicePageSelectorState extends State<TrafficPolicePageSelector> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return CityManagerPage();
+                  return NOCFormPage();
                 }),
               );
             },

@@ -11,23 +11,23 @@ import 'package:google_maps_webservice/geocoding.dart';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
-class AccidentFormPage extends StatefulWidget {
+class NOCFormPage extends StatefulWidget {
   @override
-  _AccidentFormPageState createState() => _AccidentFormPageState();
+  _NOCFormPageState createState() => _NOCFormPageState();
 }
 
-class _AccidentFormPageState extends State<AccidentFormPage> {
+class _NOCFormPageState extends State<NOCFormPage> {
   GlobalKey<FormState> _key = GlobalKey<FormState>();
   Map<String, dynamic> data = {};
   bool isLoading = false;
   String selectedText;
 
-  void submitForm() async {
+   void submitForm() async {
     toggle();
     if (_key.currentState.validate()) {
       _key.currentState.save();
       MainProvider model = Provider.of(context);
-      bool status = await model.sendAccidentData(data);
+      bool status = await model.sendNOCData(data);
       print("Status " + status.toString());
       if (status) {
         _key.currentState.reset();
@@ -69,15 +69,15 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
     });
   }
 
-  String selectedAccidentTypeValue;
+  String selectedNOCTypeValue;
   String selectedDistrictValue;
-  String selectedAccidentReasonValue;
+  String selectedNOCReasonValue;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Traffic Police : Accident Report"),
+        title: Text("Traffic Police : No Objection Certificate (NOC)"),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -116,63 +116,51 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
               Container(
                 child: DropdownButtonFormField<String>(
                   validator: (s) {
-                    if (s == null) return "Please Select Type of Accident";
+                    if (s == null) return "Please Select Type of NOC";
                     return null;
                   },
-                  decoration:
-                      InputDecoration(labelText: "Choose Type of Accident"),
-                  value: selectedAccidentTypeValue,
+                  decoration: InputDecoration(labelText: "Choose Type of NOC"),
+                  value: selectedNOCTypeValue,
                   onChanged: (s) {
                     setState(() {
-                      selectedAccidentTypeValue = s;
+                      selectedNOCTypeValue = s;
                     });
                   },
-                  items: typeOfAccident
-                      .map<DropdownMenuItem<String>>((accidentType) {
+                  items: typeOfNOC.map<DropdownMenuItem<String>>((typeNOC) {
                     return DropdownMenuItem<String>(
                       child: Text(
-                        accidentType,
+                        typeNOC,
                       ),
-                      value: accidentType,
+                      value: typeNOC,
                     );
                   }).toList(),
                   onSaved: (selected) {
-                    data["type_of_accident"] = selected;
+                    data["type_of_noc"] = selected;
                   },
                 ),
               ),
               Container(
-                child: DropdownButtonFormField<String>(
+                child: TextFormField(
                   validator: (s) {
-                    if (s == null) return "Please Select Reason of Accident";
+                    if (s == null) return "Please Enter Reason of NOC";
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: "Choose Reason of Accident",
+                    labelText: "Enter Reason of NOC",
                   ),
-                  value: selectedAccidentReasonValue,
-                  onChanged: (s) {
-                    setState(() {
-                      selectedAccidentReasonValue = s;
-                    });
-                  },
-                  items: reasonOfAccident
-                      .map<DropdownMenuItem<String>>((accidentReason) {
-                    return DropdownMenuItem<String>(
-                      child: Text(
-                        accidentReason,
-                      ),
-                      value: accidentReason,
-                    );
-                  }).toList(),
+                  initialValue: selectedNOCReasonValue,
+                  enableInteractiveSelection: true,
                   onSaved: (selected) {
-                    data["reason_of_accident"] = selected;
+                    data["reason_of_noc"] = selected;
                   },
                 ),
               ),
               Container(
                 child: DateTimePickerFormField(
                   format: DateFormat("dd/MM/yyy hh:mm:ss"),
+                  onSaved: (s) {
+                    data["date_time"] = s;
+                  },
                   inputType: InputType.both,
                   style: TextStyle(
                     height: 2,
@@ -187,7 +175,31 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                   },
                   resetIcon: null,
                   decoration: InputDecoration(
-                      labelText: "Date and Time of Accident",
+                      labelText: "Start Date and Time",
+                      hasFloatingPlaceholder: true),
+                ),
+              ),
+              Container(
+                child: DateTimePickerFormField(
+                  format: DateFormat("dd/MM/yyy hh:mm:ss"),
+                  inputType: InputType.both,
+                  onSaved: (s) {
+                    data["date_time"] = s;
+                  },
+                  style: TextStyle(
+                    height: 2,
+                  ),
+                  editable: false,
+                  validator: (d) {
+                    if (d == null) {
+                      return "Date Time Invalid";
+                    }
+                    if (d.isAfter(DateTime.now())) return "Date is in Future";
+                    return null;
+                  },
+                  resetIcon: null,
+                  decoration: InputDecoration(
+                      labelText: "End Date and Time",
                       hasFloatingPlaceholder: true),
                 ),
               ),
@@ -205,7 +217,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                   },
                   onSaved: (s) {
                     data["address"] = s["address"];
-                    data["geotag"] = [
+                    data["geocode"] = [
                       {
                         "latitude": s["latitude"],
                         "longitude": s["longiude"],
@@ -226,7 +238,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                           style: TextStyle(
                             fontSize: 16,
                             color: selectedText == null
-                                ? Colors.black.withOpacity(0.8)
+                                ? Colors.black.withOpacity(0.5)
                                 : Colors.black,
                           ),
                         ),

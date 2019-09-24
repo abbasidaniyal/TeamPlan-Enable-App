@@ -1,3 +1,4 @@
+String apiKey = "AIzaSyD-bXnAW-uMa2qWIw4EVT_h-pkoJAx6Gx8";
 List<String> districtsList = [
   'Faraskhana',
   'Koregaon',
@@ -13,7 +14,6 @@ List<String> districtsList = [
   'Vimantal',
   'Hadapsar',
   'Wanwadi',
-  'Lashkar',
   'Swargate',
   'Bundgarden',
   'Warje',
@@ -45,3 +45,14 @@ List<String> reasonOfAccident = [
   'Collision during road crossing',
   'Others',
 ];
+
+List<String> typeOfNOC = [
+  'Road digging',
+  'Yearly festival',
+];
+
+List<String> typeOfEncroachment = [];
+
+List<String> reasonOfEncroachment = [];
+
+List<String> typeOfPotHole = ["Pot holes", "Water logging"];

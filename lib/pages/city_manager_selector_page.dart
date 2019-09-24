@@ -1,5 +1,7 @@
-import 'package:enable/pages/city_manager_page.dart';
+
 import 'package:enable/pages/form/accident_form.dart';
+import 'package:enable/pages/form/encroachment_form.dart';
+import 'package:enable/pages/form/pot_holes_form.dart';
 import 'package:flutter/material.dart';
 
 class CityManagerSelectorPage extends StatefulWidget {
@@ -30,7 +32,7 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return AccidentFormPage();
+                  return EncroachmentFormPage();
                 }),
               );
             },
@@ -62,7 +64,7 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return CityManagerPage();
+                  return PotHoleFormPage();
                 }),
               );
             },
@@ -90,14 +92,32 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
               ),
             ),
             color: Colors.yellow,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return CityManagerPage();
-                }),
-              );
-            },
+            onPressed: () {},
+          ),
+        ),
+      ),
+      SizedBox(
+        width: MediaQuery.of(context).orientation == Orientation.landscape
+            ? 50
+            : 0,
+        height:
+            MediaQuery.of(context).orientation == Orientation.portrait ? 50 : 0,
+      ),
+      ClipOval(
+        child: Container(
+          width: MediaQuery.of(context).size.height * 0.30,
+          height: MediaQuery.of(context).size.height * 0.30,
+          child: RaisedButton(
+            child: Text(
+              "Street Light",
+              textScaleFactor: 1.5,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            color: Colors.green,
+            onPressed: () {},
           ),
         ),
       ),

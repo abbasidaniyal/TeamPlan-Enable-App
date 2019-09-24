@@ -1,19 +1,26 @@
 import 'package:flutter/foundation.dart';
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 class MainProvider extends ChangeNotifier {
-  String baseUrl = "https://51.158.179.237/api";
+  String baseUrl = "http://51.158.179.237/api";
 
   Future<bool> sendAccidentData(Map<String, dynamic> data) async {
     bool status = false;
     try {
-      http.Response res =
-          await http.post('$baseUrl/accident-collect', body: data);
-      if (res.statusCode != 200 && res.statusCode != 200)
+      http.Response res = await http.post('$baseUrl/accident-notice',
+          headers: {"content-type": "application/json"},
+          body: json.encode(data));
+      print(res.body);
+
+      if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
-      else
+      } else {
         status = true;
+      }
     } catch (e) {
+      print(e);
       status = false;
     }
     return status;
@@ -22,8 +29,9 @@ class MainProvider extends ChangeNotifier {
   Future<bool> sendNOCData(Map<String, dynamic> data) async {
     bool status = false;
     try {
-      http.Response res = await http.post('$baseUrl/noc-collect', body: data);
-      if (res.statusCode != 200 && res.statusCode != 200)
+      http.Response res =
+          await http.post('$baseUrl/noc-notice', body: json.encode(data));
+      if (res.statusCode != 200 && res.statusCode != 201)
         status = false;
       else
         status = true;
@@ -33,12 +41,12 @@ class MainProvider extends ChangeNotifier {
     return status;
   }
 
-  Future<bool> sendEncrochmentData(Map<String, dynamic> data) async {
+  Future<bool> sendEncroachmentData(Map<String, dynamic> data) async {
     bool status = false;
     try {
-      http.Response res =
-          await http.post('$baseUrl/encroachment-collect', body: data);
-      if (res.statusCode != 200 && res.statusCode != 200)
+      http.Response res = await http.post('$baseUrl/encroachment-collect',
+          body: json.encode(data));
+      if (res.statusCode != 200 && res.statusCode != 201)
         status = false;
       else
         status = true;
@@ -48,13 +56,13 @@ class MainProvider extends ChangeNotifier {
     return status;
   }
 
-  Future<bool> sendWaterLoggingData(Map<String, dynamic> data) async {
+  Future<bool> sendPotHoleData(Map<String, dynamic> data) async {
     bool status = false;
     try {
-      http.Response res =
-          await http.post('$baseUrl/water-logging-collect', body: data);
+      http.Response res = await http.post('$baseUrl/water-logging-collect',
+          body: json.encode(data));
 
-      if (res.statusCode != 200 && res.statusCode != 200)
+      if (res.statusCode != 200 && res.statusCode != 201)
         status = false;
       else
         status = true;

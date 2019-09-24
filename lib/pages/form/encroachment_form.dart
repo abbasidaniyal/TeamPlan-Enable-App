@@ -11,23 +11,23 @@ import 'package:google_maps_webservice/geocoding.dart';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
-class AccidentFormPage extends StatefulWidget {
+class EncroachmentFormPage extends StatefulWidget {
   @override
-  _AccidentFormPageState createState() => _AccidentFormPageState();
+  _EncroachmentFormPageState createState() => _EncroachmentFormPageState();
 }
 
-class _AccidentFormPageState extends State<AccidentFormPage> {
+class _EncroachmentFormPageState extends State<EncroachmentFormPage> {
   GlobalKey<FormState> _key = GlobalKey<FormState>();
   Map<String, dynamic> data = {};
   bool isLoading = false;
   String selectedText;
 
-  void submitForm() async {
+   void submitForm() async {
     toggle();
     if (_key.currentState.validate()) {
       _key.currentState.save();
       MainProvider model = Provider.of(context);
-      bool status = await model.sendAccidentData(data);
+      bool status = await model.sendEncroachmentData(data);
       print("Status " + status.toString());
       if (status) {
         _key.currentState.reset();
@@ -69,15 +69,15 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
     });
   }
 
-  String selectedAccidentTypeValue;
+  String selectedEncroachmentTypeValue;
   String selectedDistrictValue;
-  String selectedAccidentReasonValue;
+  String selectedEncroachmentReasonValue;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Traffic Police : Accident Report"),
+        title: Text("Traffic Police : Encroachment Report"),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -116,57 +116,57 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
               Container(
                 child: DropdownButtonFormField<String>(
                   validator: (s) {
-                    if (s == null) return "Please Select Type of Accident";
+                    if (s == null) return "Please Select Type of Encroachment";
                     return null;
                   },
                   decoration:
-                      InputDecoration(labelText: "Choose Type of Accident"),
-                  value: selectedAccidentTypeValue,
+                      InputDecoration(labelText: "Choose Type of Encroachment"),
+                  value: selectedEncroachmentTypeValue,
                   onChanged: (s) {
                     setState(() {
-                      selectedAccidentTypeValue = s;
+                      selectedEncroachmentTypeValue = s;
                     });
                   },
-                  items: typeOfAccident
-                      .map<DropdownMenuItem<String>>((accidentType) {
+                  items: typeOfEncroachment
+                      .map<DropdownMenuItem<String>>((EncroachmentType) {
                     return DropdownMenuItem<String>(
                       child: Text(
-                        accidentType,
+                        EncroachmentType,
                       ),
-                      value: accidentType,
+                      value: EncroachmentType,
                     );
                   }).toList(),
                   onSaved: (selected) {
-                    data["type_of_accident"] = selected;
+                    data["type_of_Encroachment"] = selected;
                   },
                 ),
               ),
               Container(
                 child: DropdownButtonFormField<String>(
                   validator: (s) {
-                    if (s == null) return "Please Select Reason of Accident";
+                    if (s == null) return "Please Select Reason of Encroachment";
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: "Choose Reason of Accident",
+                    labelText: "Choose Reason of Encroachment",
                   ),
-                  value: selectedAccidentReasonValue,
+                  value: selectedEncroachmentReasonValue,
                   onChanged: (s) {
                     setState(() {
-                      selectedAccidentReasonValue = s;
+                      selectedEncroachmentReasonValue = s;
                     });
                   },
-                  items: reasonOfAccident
-                      .map<DropdownMenuItem<String>>((accidentReason) {
+                  items: reasonOfEncroachment
+                      .map<DropdownMenuItem<String>>((EncroachmentReason) {
                     return DropdownMenuItem<String>(
                       child: Text(
-                        accidentReason,
+                        EncroachmentReason,
                       ),
-                      value: accidentReason,
+                      value: EncroachmentReason,
                     );
                   }).toList(),
                   onSaved: (selected) {
-                    data["reason_of_accident"] = selected;
+                    data["reason_of_Encroachment"] = selected;
                   },
                 ),
               ),
@@ -187,10 +187,10 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                   },
                   resetIcon: null,
                   decoration: InputDecoration(
-                      labelText: "Date and Time of Accident",
+                      labelText: "Date and Time of Encroachment",
                       hasFloatingPlaceholder: true),
                 ),
-              ),
+              ),  
               Container(
                 alignment: Alignment.centerLeft,
                 width: MediaQuery.of(context).size.width,
@@ -205,7 +205,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                   },
                   onSaved: (s) {
                     data["address"] = s["address"];
-                    data["geotag"] = [
+                    data["geocode"] = [
                       {
                         "latitude": s["latitude"],
                         "longitude": s["longiude"],
@@ -226,14 +226,14 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                           style: TextStyle(
                             fontSize: 16,
                             color: selectedText == null
-                                ? Colors.black.withOpacity(0.8)
+                                ? Colors.black.withOpacity(0.5)
                                 : Colors.black,
                           ),
                         ),
                         onTap: () async {
                           final p = await PlacesAutocomplete.show(
                             context: context,
-                            apiKey: apiKey,
+                            apiKey: "AIzaSyD-bXnAW-uMa2qWIw4EVT_h-pkoJAx6Gx8",
                             components: [Component(Component.country, "in")],
                           ).catchError((onError) {
                             print(onError);
@@ -244,7 +244,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                           });
 
                           final geocoding = GoogleMapsPlaces(
-                            apiKey: apiKey,
+                            apiKey: "AIzaSyD-bXnAW-uMa2qWIw4EVT_h-pkoJAx6Gx8",
                           );
 
                           PlacesDetailsResponse data = await geocoding

@@ -11,23 +11,23 @@ import 'package:google_maps_webservice/geocoding.dart';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
-class AccidentFormPage extends StatefulWidget {
+class PotHoleFormPage extends StatefulWidget {
   @override
-  _AccidentFormPageState createState() => _AccidentFormPageState();
+  _PotHoleFormPageState createState() => _PotHoleFormPageState();
 }
 
-class _AccidentFormPageState extends State<AccidentFormPage> {
+class _PotHoleFormPageState extends State<PotHoleFormPage> {
   GlobalKey<FormState> _key = GlobalKey<FormState>();
   Map<String, dynamic> data = {};
   bool isLoading = false;
   String selectedText;
 
-  void submitForm() async {
+   void submitForm() async {
     toggle();
     if (_key.currentState.validate()) {
       _key.currentState.save();
       MainProvider model = Provider.of(context);
-      bool status = await model.sendAccidentData(data);
+      bool status = await model.sendPotHoleData(data);
       print("Status " + status.toString());
       if (status) {
         _key.currentState.reset();
@@ -69,15 +69,15 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
     });
   }
 
-  String selectedAccidentTypeValue;
+  String selectedPotHoleTypeValue;
   String selectedDistrictValue;
-  String selectedAccidentReasonValue;
+  String selectedPotHoleReasonValue;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Traffic Police : Accident Report"),
+        title: Text("Traffic Police : PotHole Report"),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -116,81 +116,33 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
               Container(
                 child: DropdownButtonFormField<String>(
                   validator: (s) {
-                    if (s == null) return "Please Select Type of Accident";
+                    if (s == null) return "Please Select Type of PotHole";
                     return null;
                   },
                   decoration:
-                      InputDecoration(labelText: "Choose Type of Accident"),
-                  value: selectedAccidentTypeValue,
+                      InputDecoration(labelText: "Choose Type of PotHole"),
+                  value: selectedPotHoleTypeValue,
                   onChanged: (s) {
                     setState(() {
-                      selectedAccidentTypeValue = s;
+                      selectedPotHoleTypeValue = s;
                     });
                   },
-                  items: typeOfAccident
-                      .map<DropdownMenuItem<String>>((accidentType) {
+                  items: typeOfPotHole
+                      .map<DropdownMenuItem<String>>((potHoleType) {
                     return DropdownMenuItem<String>(
                       child: Text(
-                        accidentType,
+                        potHoleType,
                       ),
-                      value: accidentType,
+                      value: potHoleType,
                     );
                   }).toList(),
                   onSaved: (selected) {
-                    data["type_of_accident"] = selected;
+                    data["type_of_pothole"] = selected;
                   },
                 ),
               ),
-              Container(
-                child: DropdownButtonFormField<String>(
-                  validator: (s) {
-                    if (s == null) return "Please Select Reason of Accident";
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Choose Reason of Accident",
-                  ),
-                  value: selectedAccidentReasonValue,
-                  onChanged: (s) {
-                    setState(() {
-                      selectedAccidentReasonValue = s;
-                    });
-                  },
-                  items: reasonOfAccident
-                      .map<DropdownMenuItem<String>>((accidentReason) {
-                    return DropdownMenuItem<String>(
-                      child: Text(
-                        accidentReason,
-                      ),
-                      value: accidentReason,
-                    );
-                  }).toList(),
-                  onSaved: (selected) {
-                    data["reason_of_accident"] = selected;
-                  },
-                ),
-              ),
-              Container(
-                child: DateTimePickerFormField(
-                  format: DateFormat("dd/MM/yyy hh:mm:ss"),
-                  inputType: InputType.both,
-                  style: TextStyle(
-                    height: 2,
-                  ),
-                  editable: false,
-                  validator: (d) {
-                    if (d == null) {
-                      return "Date Time Invalid";
-                    }
-                    if (d.isAfter(DateTime.now())) return "Date is in Future";
-                    return null;
-                  },
-                  resetIcon: null,
-                  decoration: InputDecoration(
-                      labelText: "Date and Time of Accident",
-                      hasFloatingPlaceholder: true),
-                ),
-              ),
+             
+              
               Container(
                 alignment: Alignment.centerLeft,
                 width: MediaQuery.of(context).size.width,
@@ -205,7 +157,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                   },
                   onSaved: (s) {
                     data["address"] = s["address"];
-                    data["geotag"] = [
+                    data["geocode"] = [
                       {
                         "latitude": s["latitude"],
                         "longitude": s["longiude"],
@@ -226,14 +178,14 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                           style: TextStyle(
                             fontSize: 16,
                             color: selectedText == null
-                                ? Colors.black.withOpacity(0.8)
+                                ? Colors.black.withOpacity(0.5)
                                 : Colors.black,
                           ),
                         ),
                         onTap: () async {
                           final p = await PlacesAutocomplete.show(
                             context: context,
-                            apiKey: apiKey,
+                            apiKey: "AIzaSyD-bXnAW-uMa2qWIw4EVT_h-pkoJAx6Gx8",
                             components: [Component(Component.country, "in")],
                           ).catchError((onError) {
                             print(onError);
@@ -244,7 +196,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                           });
 
                           final geocoding = GoogleMapsPlaces(
-                            apiKey: apiKey,
+                            apiKey: "AIzaSyD-bXnAW-uMa2qWIw4EVT_h-pkoJAx6Gx8",
                           );
 
                           PlacesDetailsResponse data = await geocoding
