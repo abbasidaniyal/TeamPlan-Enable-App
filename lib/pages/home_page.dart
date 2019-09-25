@@ -13,17 +13,27 @@ class _HomePageSelectorState extends State<HomePageSelector> {
     return <Widget>[
       Container(
         width: MediaQuery.of(context).size.height * 0.30,
-        height: MediaQuery.of(context).size.height * 0.30,
+        height: MediaQuery.of(context).size.height * 0.4,
         child: FlatButton(
-          // child: Text(
-          //   "Traffic Police",
-          //   textScaleFactor: 1.5,
-          //   textAlign: TextAlign.center,
-          //   style: TextStyle(
-          //     color: Colors.white,
-          //   ),
-          // ),
-          child: Image.asset("assets/policeman.png"),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset("assets/policeman.png"),
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  "Traffic Police",
+                  textAlign: TextAlign.center,
+                  textScaleFactor: 2,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "Roboto",
+                  ),
+                ),
+              ),
+            ],
+          ),
           // color: Colors.red,
           // shape: CircleBorder(),
           onPressed: () {
@@ -45,19 +55,27 @@ class _HomePageSelectorState extends State<HomePageSelector> {
       ),
       Container(
         width: MediaQuery.of(context).size.height * 0.30,
-        height: MediaQuery.of(context).size.height * 0.30,
+        height: MediaQuery.of(context).size.height * 0.4,
         child: FlatButton(
-          // shape: CircleBorder(),
-          // child: Text(
-          //   "City Manager",
-          //   textAlign: TextAlign.center,
-          //   textScaleFactor: 1.5,
-          //   style: TextStyle(
-          //     color: Colors.white,
-          //   ),
-          // ),
-          child: Image.asset("assets/manager.png"),
-          // color: Colors.blue,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset("assets/manager.png"),
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  "City Manager",
+                  textAlign: TextAlign.center,
+                  textScaleFactor: 2,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "Roboto",
+                  ),
+                ),
+              ),
+            ],
+          ),
           onPressed: () {
             Navigator.push(
               context,
@@ -75,10 +93,6 @@ class _HomePageSelectorState extends State<HomePageSelector> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(0, 177, 185, 1),
-      // appBar: AppBar(
-      //   title: Text("Enable App"),
-      //   backgroundColor: Color.fromRGBO(0, 177, 185, 1),
-      // ),
       body: Container(
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width,
@@ -98,7 +112,8 @@ class _HomePageSelectorState extends State<HomePageSelector> {
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Roboto"),
               ),
             ),
             Center(
@@ -109,18 +124,19 @@ class _HomePageSelectorState extends State<HomePageSelector> {
                     : Axis.vertical,
                 child: MediaQuery.of(context).size.width >=
                         MediaQuery.of(context).size.height
-                    ? Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: MediaQuery.of(context).size.width * 0.05,
+                    ? Container(
+                        margin: EdgeInsets.symmetric(
+                            vertical: MediaQuery.of(context).size.width * 0.03,
                             horizontal:
-                                MediaQuery.of(context).size.width * 0.20),
+                                MediaQuery.of(context).size.width * 0.10),
                         child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: buttonList()))
-                    : Padding(
-                        padding: EdgeInsets.symmetric(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: buttonList(),
+                        ))
+                    : Container(
+                        margin: EdgeInsets.symmetric(
                             vertical: MediaQuery.of(context).size.height * 0.1,
                             horizontal:
                                 MediaQuery.of(context).size.width * 0.1),
@@ -132,14 +148,41 @@ class _HomePageSelectorState extends State<HomePageSelector> {
               ),
             ),
             Container(
+              padding: EdgeInsets.all(10.0),
+              child: Text(
+                "Supported By :- ",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ),
+            Container(
               alignment: Alignment.bottomLeft,
-              child: Row(
-                children: <Widget>[
-                  Container(child: Image.asset("assets/iscf_logo.png")),
-                  Container(child: Image.asset("assets/pune_police_logo.png")),
-                  Container(child: Image.asset("assets/pune-smart-city_logo.jpg")),
-                  Container(child: Image.asset("assets/smart_cities_logo.png")),
-                ],
+              margin: EdgeInsets.only(bottom: 20.0),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        color: Colors.transparent,
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        child: Image.asset("assets/iscf_logo.png")),
+                    Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        color: Colors.transparent,
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        child: Image.asset("assets/smart_cities_logo.png")),
+                    Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        color: Colors.transparent,
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        child: Image.asset("assets/pune-smart-city_logo.jpg")),
+                    Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        color: Colors.transparent,
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        child: Image.asset("assets/pune_police_logo.png")),
+                  ],
+                ),
               ),
             ),
           ],
