@@ -1,4 +1,5 @@
 import 'package:enable/pages/home_page.dart';
+import 'package:enable/pages/login_page.dart';
 import 'package:enable/providers/my_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.white,
           primaryColor: Colors.black,
         ),
-        home: HomePageSelector(),
+        home: LoginPageSelector(),
       ),
     );
   }
