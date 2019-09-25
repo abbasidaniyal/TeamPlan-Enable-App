@@ -11,18 +11,18 @@ import 'package:google_maps_webservice/geocoding.dart';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
-class PotHoleFormPage extends StatefulWidget {
+class PotholesFormPage extends StatefulWidget {
   @override
-  _PotHoleFormPageState createState() => _PotHoleFormPageState();
+  _PotholesFormPageState createState() => _PotholesFormPageState();
 }
 
-class _PotHoleFormPageState extends State<PotHoleFormPage> {
+class _PotholesFormPageState extends State<PotholesFormPage> {
   GlobalKey<FormState> _key = GlobalKey<FormState>();
   Map<String, dynamic> data = {};
   bool isLoading = false;
   String selectedText;
 
-   void submitForm() async {
+  void submitForm() async {
     toggle();
     if (_key.currentState.validate()) {
       _key.currentState.save();
@@ -69,15 +69,15 @@ class _PotHoleFormPageState extends State<PotHoleFormPage> {
     });
   }
 
-  String selectedPotHoleTypeValue;
-  String selectedDistrictValue;
-  String selectedPotHoleReasonValue;
+  String selectedPotholesTypeValue;
+  String selectedWardValue;
+  String selectedRoadNameValue;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Traffic Police : PotHole Report"),
+        title: Text("City Manager : Pot Holes Report"),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -86,63 +86,45 @@ class _PotHoleFormPageState extends State<PotHoleFormPage> {
           child: ListView(
             children: <Widget>[
               Container(
-                child: DropdownButtonFormField<String>(
+                alignment: Alignment.centerLeft,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.1,
+                child: TextFormField(
                   validator: (s) {
-                    if (s == null) return "Select Traffic Division";
+                    if (s == null) return "Please Enter Road Name";
                     return null;
                   },
-                  decoration:
-                      InputDecoration(labelText: "Choose Traffic Division"),
-                  value: selectedDistrictValue,
-                  onChanged: (s) {
-                    setState(() {
-                      selectedDistrictValue = s;
-                    });
-                  },
-                  items:
-                      districtsList.map<DropdownMenuItem<String>>((district) {
-                    return DropdownMenuItem<String>(
-                      child: Text(
-                        district,
-                      ),
-                      value: district,
-                    );
-                  }).toList(),
+                  decoration: InputDecoration(
+                    labelText: "Enter Road Name",
+                  ),
+                  initialValue: selectedRoadNameValue,
+                  enableInteractiveSelection: true,
                   onSaved: (selected) {
-                    data["traffic_division"] = selected;
+                    data["road_name"] = selected;
                   },
                 ),
               ),
               Container(
-                child: DropdownButtonFormField<String>(
+                alignment: Alignment.centerLeft,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.1,
+                child: TextFormField(
                   validator: (s) {
-                    if (s == null) return "Please Select Type of PotHole";
+                    if (s == null) return "Please Enter Ward Number";
                     return null;
                   },
-                  decoration:
-                      InputDecoration(labelText: "Choose Type of PotHole"),
-                  value: selectedPotHoleTypeValue,
-                  onChanged: (s) {
-                    setState(() {
-                      selectedPotHoleTypeValue = s;
-                    });
-                  },
-                  items: typeOfPotHole
-                      .map<DropdownMenuItem<String>>((potHoleType) {
-                    return DropdownMenuItem<String>(
-                      child: Text(
-                        potHoleType,
-                      ),
-                      value: potHoleType,
-                    );
-                  }).toList(),
+                  keyboardType: TextInputType.numberWithOptions(
+                      decimal: true, signed: false),
+                  decoration: InputDecoration(
+                    labelText: "Enter Ward Number",
+                  ),
+                  initialValue: selectedWardValue,
+                  enableInteractiveSelection: true,
                   onSaved: (selected) {
-                    data["type_of_pothole"] = selected;
+                    data["ward_number"] = selected;
                   },
                 ),
               ),
-             
-              
               Container(
                 alignment: Alignment.centerLeft,
                 width: MediaQuery.of(context).size.width,
@@ -157,7 +139,7 @@ class _PotHoleFormPageState extends State<PotHoleFormPage> {
                   },
                   onSaved: (s) {
                     data["address"] = s["address"];
-                    data["geocode"] = [
+                    data["geotags"] = [
                       {
                         "latitude": s["latitude"],
                         "longitude": s["longiude"],

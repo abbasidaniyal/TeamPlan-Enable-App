@@ -177,6 +177,9 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                   style: TextStyle(
                     height: 2,
                   ),
+                  onSaved: (s) {
+                    data["accident_time"] = s.toIso8601String();
+                  },
                   editable: false,
                   validator: (d) {
                     if (d == null) {
@@ -207,6 +210,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                     data["address"] = s["address"];
                     data["geotag"] = [
                       {
+                                
                         "latitude": s["latitude"],
                         "longitude": s["longiude"],
                       }

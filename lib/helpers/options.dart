@@ -48,7 +48,7 @@ List<String> reasonOfAccident = [
 
 List<String> typeOfNOC = [
   'Road digging',
-  'Yearly festival',
+  'Yearly Festival',
 ];
 
 List<String> typeOfEncroachment = [];

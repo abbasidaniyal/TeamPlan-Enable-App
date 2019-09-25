@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class MainProvider extends ChangeNotifier {
-  String baseUrl = "http://51.158.179.237/api";
-  // String baseUrl ="https://cors-anywhere.herokuapp.com/http://51.158.179.237/api"; //For flutter web local
+  // String baseUrl = "http://51.158.179.237/api";
+  String baseUrl ="https://cors-anywhere.herokuapp.com/http://51.158.179.237/api"; //For flutter web local
 
   Future<bool> sendAccidentData(Map<String, dynamic> data) async {
     bool status = false;
@@ -13,7 +13,6 @@ class MainProvider extends ChangeNotifier {
       http.Response res = await http.post('$baseUrl/accident-notice',
           headers: {
             'Content-type': 'application/json',
-            // "Access-Control-Allow-Origin": "*",
           },
           body: json.encode(data));
       print(res.body);
@@ -33,28 +32,42 @@ class MainProvider extends ChangeNotifier {
   Future<bool> sendNOCData(Map<String, dynamic> data) async {
     bool status = false;
     try {
-      http.Response res =
-          await http.post('$baseUrl/noc-notice', body: json.encode(data));
-      if (res.statusCode != 200 && res.statusCode != 201)
+      http.Response res = await http.post('$baseUrl/noc-notice',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: json.encode(data));
+      print(res.body);
+
+      if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
-      else
+      } else {
         status = true;
+      }
     } catch (e) {
+      print(e);
       status = false;
     }
     return status;
   }
 
-  Future<bool> sendEncroachmentData(Map<String, dynamic> data) async {
+  Future<bool> sendWaterLoggingData(Map<String, dynamic> data) async {
     bool status = false;
     try {
-      http.Response res = await http.post('$baseUrl/encroachment-collect',
+      http.Response res = await http.post('$baseUrl/waterlogging-collect',
+          headers: {
+            'Content-type': 'application/json',
+          },
           body: json.encode(data));
-      if (res.statusCode != 200 && res.statusCode != 201)
+      print(res.body);
+
+      if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
-      else
+      } else {
         status = true;
+      }
     } catch (e) {
+      print(e);
       status = false;
     }
     return status;
@@ -63,14 +76,20 @@ class MainProvider extends ChangeNotifier {
   Future<bool> sendPotHoleData(Map<String, dynamic> data) async {
     bool status = false;
     try {
-      http.Response res = await http.post('$baseUrl/water-logging-collect',
+      http.Response res = await http.post('$baseUrl/potholes-collect',
+          headers: {
+            'Content-type': 'application/json',
+          },
           body: json.encode(data));
+      print(res.body);
 
-      if (res.statusCode != 200 && res.statusCode != 201)
+      if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
-      else
+      } else {
         status = true;
+      }
     } catch (e) {
+      print(e);
       status = false;
     }
     return status;

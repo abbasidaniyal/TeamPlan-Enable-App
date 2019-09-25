@@ -11,23 +11,23 @@ import 'package:google_maps_webservice/geocoding.dart';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
-class EncroachmentFormPage extends StatefulWidget {
+class WaterLoggingFormPage extends StatefulWidget {
   @override
-  _EncroachmentFormPageState createState() => _EncroachmentFormPageState();
+  _WaterLoggingFormPageState createState() => _WaterLoggingFormPageState();
 }
 
-class _EncroachmentFormPageState extends State<EncroachmentFormPage> {
+class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
   GlobalKey<FormState> _key = GlobalKey<FormState>();
   Map<String, dynamic> data = {};
   bool isLoading = false;
   String selectedText;
 
-   void submitForm() async {
+  void submitForm() async {
     toggle();
     if (_key.currentState.validate()) {
       _key.currentState.save();
       MainProvider model = Provider.of(context);
-      bool status = await model.sendEncroachmentData(data);
+      bool status = await model.sendWaterLoggingData(data);
       print("Status " + status.toString());
       if (status) {
         _key.currentState.reset();
@@ -69,15 +69,15 @@ class _EncroachmentFormPageState extends State<EncroachmentFormPage> {
     });
   }
 
-  String selectedEncroachmentTypeValue;
-  String selectedDistrictValue;
-  String selectedEncroachmentReasonValue;
+  String selectedWaterLoggingTypeValue;
+  String selectedWardValue;
+  String selectedRoadNameValue;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Traffic Police : Encroachment Report"),
+        title: Text("City Manager : Water Logging Report"),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -86,111 +86,45 @@ class _EncroachmentFormPageState extends State<EncroachmentFormPage> {
           child: ListView(
             children: <Widget>[
               Container(
-                child: DropdownButtonFormField<String>(
+                alignment: Alignment.centerLeft,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.1,
+                child: TextFormField(
                   validator: (s) {
-                    if (s == null) return "Select Traffic Division";
-                    return null;
-                  },
-                  decoration:
-                      InputDecoration(labelText: "Choose Traffic Division"),
-                  value: selectedDistrictValue,
-                  onChanged: (s) {
-                    setState(() {
-                      selectedDistrictValue = s;
-                    });
-                  },
-                  items:
-                      districtsList.map<DropdownMenuItem<String>>((district) {
-                    return DropdownMenuItem<String>(
-                      child: Text(
-                        district,
-                      ),
-                      value: district,
-                    );
-                  }).toList(),
-                  onSaved: (selected) {
-                    data["traffic_division"] = selected;
-                  },
-                ),
-              ),
-              Container(
-                child: DropdownButtonFormField<String>(
-                  validator: (s) {
-                    if (s == null) return "Please Select Type of Encroachment";
-                    return null;
-                  },
-                  decoration:
-                      InputDecoration(labelText: "Choose Type of Encroachment"),
-                  value: selectedEncroachmentTypeValue,
-                  onChanged: (s) {
-                    setState(() {
-                      selectedEncroachmentTypeValue = s;
-                    });
-                  },
-                  items: typeOfEncroachment
-                      .map<DropdownMenuItem<String>>((EncroachmentType) {
-                    return DropdownMenuItem<String>(
-                      child: Text(
-                        EncroachmentType,
-                      ),
-                      value: EncroachmentType,
-                    );
-                  }).toList(),
-                  onSaved: (selected) {
-                    data["type_of_Encroachment"] = selected;
-                  },
-                ),
-              ),
-              Container(
-                child: DropdownButtonFormField<String>(
-                  validator: (s) {
-                    if (s == null) return "Please Select Reason of Encroachment";
+                    if (s == null) return "Please Enter Road Name";
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: "Choose Reason of Encroachment",
+                    labelText: "Enter Road Name",
                   ),
-                  value: selectedEncroachmentReasonValue,
-                  onChanged: (s) {
-                    setState(() {
-                      selectedEncroachmentReasonValue = s;
-                    });
-                  },
-                  items: reasonOfEncroachment
-                      .map<DropdownMenuItem<String>>((EncroachmentReason) {
-                    return DropdownMenuItem<String>(
-                      child: Text(
-                        EncroachmentReason,
-                      ),
-                      value: EncroachmentReason,
-                    );
-                  }).toList(),
+                  initialValue: selectedRoadNameValue,
+                  enableInteractiveSelection: true,
                   onSaved: (selected) {
-                    data["reason_of_Encroachment"] = selected;
+                    data["road_name"] = selected;
                   },
                 ),
               ),
               Container(
-                child: DateTimePickerFormField(
-                  format: DateFormat("dd/MM/yyy hh:mm:ss"),
-                  inputType: InputType.both,
-                  style: TextStyle(
-                    height: 2,
-                  ),
-                  editable: false,
-                  validator: (d) {
-                    if (d == null) {
-                      return "Date Time Invalid";
-                    }
-                    if (d.isAfter(DateTime.now())) return "Date is in Future";
+                alignment: Alignment.centerLeft,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.1,
+                child: TextFormField(
+                  validator: (s) {
+                    if (s == null) return "Please Enter Ward Number";
                     return null;
                   },
-                  resetIcon: null,
+                  keyboardType: TextInputType.numberWithOptions(
+                      decimal: true, signed: false),
                   decoration: InputDecoration(
-                      labelText: "Date and Time of Encroachment",
-                      hasFloatingPlaceholder: true),
+                    labelText: "Enter Ward Number",
+                  ),
+                  initialValue: selectedWardValue,
+                  enableInteractiveSelection: true,
+                  onSaved: (selected) {
+                    data["ward_number"] = selected;
+                  },
                 ),
-              ),  
+              ),
               Container(
                 alignment: Alignment.centerLeft,
                 width: MediaQuery.of(context).size.width,
@@ -205,7 +139,7 @@ class _EncroachmentFormPageState extends State<EncroachmentFormPage> {
                   },
                   onSaved: (s) {
                     data["address"] = s["address"];
-                    data["geocode"] = [
+                    data["geotags"] = [
                       {
                         "latitude": s["latitude"],
                         "longitude": s["longiude"],

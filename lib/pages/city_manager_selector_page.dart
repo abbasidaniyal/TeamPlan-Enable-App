@@ -1,7 +1,7 @@
 
 import 'package:enable/pages/form/accident_form.dart';
-import 'package:enable/pages/form/encroachment_form.dart';
 import 'package:enable/pages/form/pot_holes_form.dart';
+import 'package:enable/pages/form/water_logging_form.dart';
 import 'package:flutter/material.dart';
 
 class CityManagerSelectorPage extends StatefulWidget {
@@ -19,7 +19,7 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
           height: MediaQuery.of(context).size.height * 0.30,
           child: RaisedButton(
             child: Text(
-              "Encroachment",
+              "Water Logging",
               textScaleFactor: 1.5,
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -32,7 +32,7 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return EncroachmentFormPage();
+                  return WaterLoggingFormPage();
                 }),
               );
             },
@@ -52,7 +52,7 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
           height: MediaQuery.of(context).size.height * 0.30,
           child: RaisedButton(
             child: Text(
-              "Water Logging/Pot Holes",
+              "Pot Holes",
               textScaleFactor: 1.5,
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -64,7 +64,7 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return PotHoleFormPage();
+                  return PotholesFormPage();
                 }),
               );
             },

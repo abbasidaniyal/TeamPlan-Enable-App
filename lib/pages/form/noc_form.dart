@@ -18,13 +18,17 @@ class NOCFormPage extends StatefulWidget {
 
 class _NOCFormPageState extends State<NOCFormPage> {
   GlobalKey<FormState> _key = GlobalKey<FormState>();
-  Map<String, dynamic> data = {};
+  Map<String, dynamic> data = {"geotags": []};
   bool isLoading = false;
-  String selectedText;
-
-   void submitForm() async {
+  String selectedTextStart;
+  String selectedTextEnd;
+  List<String> selectedText = [];
+  int count = -1;
+  List<Map<String, String>> via = [];
+  void submitForm() async {
     toggle();
     if (_key.currentState.validate()) {
+      print(data);
       _key.currentState.save();
       MainProvider model = Provider.of(context);
       bool status = await model.sendNOCData(data);
@@ -116,10 +120,11 @@ class _NOCFormPageState extends State<NOCFormPage> {
               Container(
                 child: DropdownButtonFormField<String>(
                   validator: (s) {
-                    if (s == null) return "Please Select Type of NOC";
+                    if (s == null) return "Please Select Reason of NOC";
                     return null;
                   },
-                  decoration: InputDecoration(labelText: "Choose Type of NOC"),
+                  decoration:
+                      InputDecoration(labelText: "Choose Reason of NOC"),
                   value: selectedNOCTypeValue,
                   onChanged: (s) {
                     setState(() {
@@ -135,23 +140,23 @@ class _NOCFormPageState extends State<NOCFormPage> {
                     );
                   }).toList(),
                   onSaved: (selected) {
-                    data["type_of_noc"] = selected;
+                    data["reason_of_noc"] = selected;
                   },
                 ),
               ),
               Container(
                 child: TextFormField(
                   validator: (s) {
-                    if (s == null) return "Please Enter Reason of NOC";
+                    if (s == null) return "Please Enter Type of NOC";
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: "Enter Reason of NOC",
+                    labelText: "Enter Type of NOC",
                   ),
                   initialValue: selectedNOCReasonValue,
                   enableInteractiveSelection: true,
                   onSaved: (selected) {
-                    data["reason_of_noc"] = selected;
+                    data["type_of_noc"] = selected;
                   },
                 ),
               ),
@@ -159,7 +164,7 @@ class _NOCFormPageState extends State<NOCFormPage> {
                 child: DateTimePickerFormField(
                   format: DateFormat("dd/MM/yyy hh:mm:ss"),
                   onSaved: (s) {
-                    data["date_time"] = s;
+                    data["date_time"] = s.toIso8601String();
                   },
                   inputType: InputType.both,
                   style: TextStyle(
@@ -184,7 +189,7 @@ class _NOCFormPageState extends State<NOCFormPage> {
                   format: DateFormat("dd/MM/yyy hh:mm:ss"),
                   inputType: InputType.both,
                   onSaved: (s) {
-                    data["date_time"] = s;
+                    data["date_time"] = s.toIso8601String();
                   },
                   style: TextStyle(
                     height: 2,
@@ -206,23 +211,19 @@ class _NOCFormPageState extends State<NOCFormPage> {
               Container(
                 alignment: Alignment.centerLeft,
                 width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 0.5))),
                 height: MediaQuery.of(context).size.height * 0.1,
                 child: FormField<Map<String, dynamic>>(
                   validator: (s) {
-                    if (s == null) return "Please Enter Location Address";
+                    if (s == null) return "Please Enter Start Location Address";
 
                     return null;
                   },
                   onSaved: (s) {
-                    data["address"] = s["address"];
-                    data["geocode"] = [
-                      {
-                        "latitude": s["latitude"],
-                        "longitude": s["longiude"],
-                      }
-                    ];
+                    // data["address"] = s["address"];
+                    data["start_location_geotag"] = {
+                      "latitude": s["latitude"],
+                      "longitude": s["longiude"],
+                    };
                   },
                   builder: (FormFieldState<Map<String, dynamic>> state) {
                     return Container(
@@ -230,14 +231,15 @@ class _NOCFormPageState extends State<NOCFormPage> {
                       child: InkWell(
                         child: TextField(
                           decoration: InputDecoration(
-                            labelText: "Location",
+                            labelText: "Start Location",
                           ),
-                          controller: TextEditingController(text: selectedText),
+                          controller:
+                              TextEditingController(text: selectedTextStart),
                           enabled: false,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontSize: 16,
-                            color: selectedText == null
+                            color: selectedTextStart == null
                                 ? Colors.black.withOpacity(0.5)
                                 : Colors.black,
                           ),
@@ -252,7 +254,7 @@ class _NOCFormPageState extends State<NOCFormPage> {
                             return;
                           });
                           setState(() {
-                            selectedText = p?.description ?? null;
+                            selectedTextStart = p?.description ?? null;
                           });
 
                           final geocoding = GoogleMapsPlaces(
@@ -275,6 +277,186 @@ class _NOCFormPageState extends State<NOCFormPage> {
                         },
                       ),
                     );
+                  },
+                ),
+              ),
+              count >= 0
+                  ? ListView.builder(
+                      shrinkWrap: true,
+                      addAutomaticKeepAlives: true,
+                      itemCount: count + 1,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          alignment: Alignment.centerLeft,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.1,
+                          child: FormField<Map<String, dynamic>>(
+                            validator: (s) {
+                              if (s == null)
+                                return "Please Enter Via Location Address";
+
+                              return null;
+                            },
+                            onSaved: (s) {
+                              
+                              data["geotags"].insert(
+                                index,
+                                {
+                                  "latitude": s["latitude"],
+                                  "longitude": s["longiude"],
+                                },
+                              );
+                              
+                            },
+                            builder:
+                                (FormFieldState<Map<String, dynamic>> state) {
+                              return Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: InkWell(
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      labelText: "Via",
+                                    ),
+                                    controller: TextEditingController(
+                                        text: selectedText[index]),
+                                    enabled: false,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: selectedText[index] == null
+                                          ? Colors.black.withOpacity(0.5)
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                  onTap: () async {
+                                    final p = await PlacesAutocomplete.show(
+                                      context: context,
+                                      apiKey: apiKey,
+                                      components: [
+                                        Component(Component.country, "in")
+                                      ],
+                                    ).catchError((onError) {
+                                      print(onError);
+                                      return;
+                                    });
+                                    setState(() {
+                                      selectedText[index] =
+                                          p?.description ?? null;
+                                    });
+
+                                    final geocoding = GoogleMapsPlaces(
+                                      apiKey: apiKey,
+                                    );
+
+                                    PlacesDetailsResponse data = await geocoding
+                                        .getDetailsByPlaceId(p?.placeId)
+                                        .catchError((onError) {
+                                      print(onError);
+                                      return;
+                                    });
+                                    Map<String, dynamic> addressData = {
+                                      "address": p?.description,
+                                      "longiude":
+                                          data?.result?.geometry?.location?.lng,
+                                      "latitude":
+                                          data?.result?.geometry?.location?.lat,
+                                    };
+
+                                    state.didChange(addressData);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    )
+                  : Container(),
+              Container(
+                alignment: Alignment.centerLeft,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.1,
+                child: FormField<Map<String, dynamic>>(
+                  validator: (s) {
+                    if (s == null) return "Please Enter End Location Address";
+
+                    return null;
+                  },
+                  onSaved: (s) {
+                    // data["address"] = s["address"];
+                    data["end_location_geotag"] = {
+                      "latitude": s["latitude"],
+                      "longitude": s["longiude"],
+                    };
+                  },
+                  builder: (FormFieldState<Map<String, dynamic>> state) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: InkWell(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            labelText: "End Location",
+                          ),
+                          controller:
+                              TextEditingController(text: selectedTextEnd),
+                          enabled: false,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: selectedTextEnd == null
+                                ? Colors.black.withOpacity(0.5)
+                                : Colors.black,
+                          ),
+                        ),
+                        onTap: () async {
+                          final p = await PlacesAutocomplete.show(
+                            context: context,
+                            apiKey: apiKey,
+                            components: [Component(Component.country, "in")],
+                          ).catchError((onError) {
+                            print(onError);
+                            return;
+                          });
+                          setState(() {
+                            selectedTextEnd = p?.description ?? null;
+                          });
+
+                          final geocoding = GoogleMapsPlaces(
+                            apiKey: apiKey,
+                          );
+
+                          PlacesDetailsResponse data = await geocoding
+                              .getDetailsByPlaceId(p?.placeId)
+                              .catchError((onError) {
+                            print(onError);
+                            return;
+                          });
+                          Map<String, dynamic> addressData = {
+                            "address": p?.description,
+                            "longiude": data?.result?.geometry?.location?.lng,
+                            "latitude": data?.result?.geometry?.location?.lat,
+                          };
+
+                          state.didChange(addressData);
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerRight,
+                child: FlatButton(
+                  child: Text(
+                    "Add More",
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      selectedText.add(null);
+                      count++;
+                    });
+                    print(count);
                   },
                 ),
               ),
