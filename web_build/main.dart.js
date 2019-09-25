@@ -26736,9 +26736,9 @@ var $async$n7=P.X(function(b,c){if(b===1){q=c
 u=r}while(true)switch(u){case 0:k=!1
 r=4
 m=P.h
-m=P.aw(["Content-type","application/json","Access-Control-Allow-Origin","*"],m,m)
+m=P.aw(["Content-type","application/json"],m,m)
 u=7
-return P.W(G.a_H("https://cors-anywhere.herokuapp.com/http://51.158.179.237/api/accident-notice",C.aA.ed(a),m),$async$n7)
+return P.W(G.a_H("http://51.158.179.237/api/accident-notice",C.aA.ed(a),m),$async$n7)
 case 7:o=c
 m=o
 P.cr(B.a1Z(U.a1y(m.e).c.a.i(0,"charset")).dk(0,m.x))
@@ -26768,7 +26768,7 @@ var $async$n9=P.X(function(b,c){if(b===1){q=c
 u=r}while(true)switch(u){case 0:m=!1
 r=4
 u=7
-return P.W(G.a_H("https://cors-anywhere.herokuapp.com/http://51.158.179.237/api/noc-notice",C.aA.ed(a),null),$async$n9)
+return P.W(G.a_H("http://51.158.179.237/api/noc-notice",C.aA.ed(a),null),$async$n9)
 case 7:o=c
 if(o.b!==200&&o.b!==201)m=!1
 else m=!0
@@ -26795,7 +26795,7 @@ var $async$n8=P.X(function(b,c){if(b===1){q=c
 u=r}while(true)switch(u){case 0:m=!1
 r=4
 u=7
-return P.W(G.a_H("https://cors-anywhere.herokuapp.com/http://51.158.179.237/api/encroachment-collect",C.aA.ed(a),null),$async$n8)
+return P.W(G.a_H("http://51.158.179.237/api/encroachment-collect",C.aA.ed(a),null),$async$n8)
 case 7:o=c
 if(o.b!==200&&o.b!==201)m=!1
 else m=!0
@@ -26822,7 +26822,7 @@ var $async$na=P.X(function(b,c){if(b===1){q=c
 u=r}while(true)switch(u){case 0:m=!1
 r=4
 u=7
-return P.W(G.a_H("https://cors-anywhere.herokuapp.com/http://51.158.179.237/api/water-logging-collect",C.aA.ed(a),null),$async$na)
+return P.W(G.a_H("http://51.158.179.237/api/water-logging-collect",C.aA.ed(a),null),$async$na)
 case 7:o=c
 if(o.b!==200&&o.b!==201)m=!1
 else m=!0
