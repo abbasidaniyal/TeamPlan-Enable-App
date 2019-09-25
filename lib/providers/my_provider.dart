@@ -4,13 +4,17 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class MainProvider extends ChangeNotifier {
-  String baseUrl = "https://cors-anywhere.herokuapp.com/http://51.158.179.237/api";
+  String baseUrl =
+      "https://cors-anywhere.herokuapp.com/http://51.158.179.237/api";
 
   Future<bool> sendAccidentData(Map<String, dynamic> data) async {
     bool status = false;
     try {
       http.Response res = await http.post('$baseUrl/accident-notice',
-          headers: {"content-type": "application/json"},
+          headers: {
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*",
+          },
           body: json.encode(data));
       print(res.body);
 
