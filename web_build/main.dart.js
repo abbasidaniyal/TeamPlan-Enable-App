@@ -26736,7 +26736,7 @@ var $async$n7=P.X(function(b,c){if(b===1){q=c
 u=r}while(true)switch(u){case 0:k=!1
 r=4
 m=P.h
-m=P.aw(["content-type","application/json"],m,m)
+m=P.aw(["Content-type","application/json","Access-Control-Allow-Origin","*"],m,m)
 u=7
 return P.W(G.a_H("https://cors-anywhere.herokuapp.com/http://51.158.179.237/api/accident-notice",C.aA.ed(a),m),$async$n7)
 case 7:o=c
