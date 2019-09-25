@@ -79,9 +79,9 @@ packages:
   flutter_google_places:
     dependency: "direct main"
     description:
-      name: flutter_google_places
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "custom_packages\\flutter_google_places-0.2.3"
+      relative: true
+    source: path
     version: "0.2.3"
   flutter_test:
     dependency: "direct dev"
@@ -91,10 +91,10 @@ packages:
   google_maps_webservice:
     dependency: transitive
     description:
-      name: google_maps_webservice
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.15"
+      path: "custom_packages\\google_maps_webservice-0.0.14"
+      relative: true
+    source: path
+    version: "0.0.14"
   http:
     dependency: "direct main"
     description:
@@ -178,7 +178,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.22.2"
+    version: "0.22.0"
   sky_engine:
     dependency: transitive
     description: flutter
