@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class MainProvider extends ChangeNotifier {
-  String baseUrl =
-      "http://51.158.179.237/api";
+  String baseUrl = "http://51.158.179.237/api";
+  // String baseUrl ="https://cors-anywhere.herokuapp.com/http://51.158.179.237/api"; //For flutter web local
 
   Future<bool> sendAccidentData(Map<String, dynamic> data) async {
     bool status = false;
