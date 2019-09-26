@@ -56,6 +56,14 @@ flutter:
   - assets/pune_police_logo.png
   - assets/pune-smart-city_logo.jpg
   - assets/smart_cities_logo.png
+  - assets/accident.png
+  - assets/waterlogging.png
+  - assets/traffic-lights.png
+  - assets/hawker.png
+  - assets/success.gif
+  
+  
+  
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

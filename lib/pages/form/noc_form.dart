@@ -175,7 +175,7 @@ class _NOCFormPageState extends State<NOCFormPage> {
                     if (d == null) {
                       return "Date Time Invalid";
                     }
-                    if (d.isAfter(DateTime.now())) return "Date is in Future";
+                    if (d.isBefore(DateTime.now())) return "Date is Already Gone";
                     return null;
                   },
                   resetIcon: null,
@@ -199,7 +199,7 @@ class _NOCFormPageState extends State<NOCFormPage> {
                     if (d == null) {
                       return "Date Time Invalid";
                     }
-                    if (d.isAfter(DateTime.now())) return "Date is in Future";
+                    if (d.isBefore(DateTime.now())) return "Date is Already Gone";
                     return null;
                   },
                   resetIcon: null,

@@ -1,6 +1,6 @@
-
 import 'package:enable/pages/form/accident_form.dart';
 import 'package:enable/pages/form/noc_form.dart';
+import 'package:enable/widgets/footer.dart';
 import 'package:flutter/material.dart';
 
 class TrafficPolicePageSelector extends StatefulWidget {
@@ -12,69 +12,90 @@ class TrafficPolicePageSelector extends StatefulWidget {
 class _TrafficPolicePageSelectorState extends State<TrafficPolicePageSelector> {
   List<Widget> buttonList() {
     return <Widget>[
-      ClipOval(
-        child: Container(
-          width: MediaQuery.of(context).size.height * 0.30,
-          height: MediaQuery.of(context).size.height * 0.30,
-          child: RaisedButton(
-            child: Center(
-              child: Text(
-                "Accident",
-                textScaleFactor: 1.5,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
+      Container(
+        width: MediaQuery.of(context).size.width * 0.30,
+        height: MediaQuery.of(context).size.height * 0.40,
+        child: FlatButton(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                  margin: EdgeInsets.only(top: 25.0),
+                  // width: MediaQuery.of(context).size.width * 0.10,
+                  height: MediaQuery.of(context).size.height * 0.20,
+                  child: Image.asset("assets/accident.png")),
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  "Report Accident",
+                  textAlign: TextAlign.center,
+                  textScaleFactor: 2,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "Roboto",
+                  ),
                 ),
               ),
-            ),
-            color: Colors.red,
-            shape: CircleBorder(),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return AccidentFormPage();
-                }),
-              );
-            },
+            ],
           ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return AccidentFormPage();
+              }),
+            );
+          },
         ),
       ),
       SizedBox(
         width: MediaQuery.of(context).orientation == Orientation.landscape
-            ? 50
+            ? 200
             : 0,
         height:
             MediaQuery.of(context).orientation == Orientation.portrait ? 50 : 0,
       ),
-      ClipOval(
-        child: Container(
-          width: MediaQuery.of(context).size.height * 0.30,
-          height: MediaQuery.of(context).size.height * 0.30,
+      Container(
+        width: MediaQuery.of(context).size.width * 0.30,
+        height: MediaQuery.of(context).size.height * 0.40,
 
-          // alignment: Alignment.center,
-          child: RaisedButton(
-            // shape: CircleBorder(),
-            child: Center(
-              child: Text(
-                "No Objection Certificate (NOC)",
-                textScaleFactor: 1.5,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
+        // alignment: Alignment.center,
+        child: FlatButton(
+          // shape: CircleBorder(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                  margin: EdgeInsets.only(top: 25.0),
+                  // width: MediaQuery.of(context).size.width * 0.10,
+                  height: MediaQuery.of(context).size.height * 0.20,
+                  child: Image.asset("assets/policeman.png")),
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  "Non Objection Certificate",
+                  textAlign: TextAlign.center,
+                  textScaleFactor: 2,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "Roboto",
+                  ),
                 ),
               ),
-            ),
-            color: Colors.blue,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return NOCFormPage();
-                }),
-              );
-            },
+            ],
           ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return NOCFormPage();
+              }),
+            );
+          },
         ),
       ),
     ];
@@ -83,38 +104,101 @@ class _TrafficPolicePageSelectorState extends State<TrafficPolicePageSelector> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Traffic Police: Type of Issue"),
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          scrollDirection: MediaQuery.of(context).size.width >=
-                  MediaQuery.of(context).size.height
-              ? Axis.horizontal
-              : Axis.vertical,
-          child: MediaQuery.of(context).size.width >=
-                  MediaQuery.of(context).size.height
-              ? Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.width * 0.10,
-                      horizontal: MediaQuery.of(context).size.width * 0.20),
-                  child: Row(
+      backgroundColor: Color.fromRGBO(0, 177, 185, 1),
+      body: ListView(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.topLeft,
+                    // margin: EdgeInsets.only(top: 10.0),
+                    width: MediaQuery.of(context).size.width * 0.20,
+                    // height: MediaQuery.of(context).size.height * 0.10,
+                    child: Image.asset("assets/logo.png"),
+                  ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Data Collection Tool",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Roboto"),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.60,
+              ),
+              MediaQuery.of(context).orientation == Orientation.landscape
+                  ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: buttonList()))
-              : Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.1,
-                      horizontal: MediaQuery.of(context).size.width * 0.1),
-                  child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: buttonList())),
-        ),
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Container(
+                            margin: EdgeInsets.only(top: 25.0),
+                            width: MediaQuery.of(context).size.width * 0.10,
+                            // height: MediaQuery.of(context).size.height * 0.10,
+                            child: Image.asset("assets/policeman.png")),
+                        Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Text(
+                            "Traffic Police",
+                            textAlign: TextAlign.center,
+                            textScaleFactor: 2,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Roboto",
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Container(),
+            ],
+          ),
+          Container(
+            alignment: Alignment.center,
+            // width: MediaQuery.of(context).size.width,
+            // height: MediaQuery.of(context).size.height * 0.5,
+            child: SingleChildScrollView(
+              scrollDirection: MediaQuery.of(context).size.width >=
+                      MediaQuery.of(context).size.height
+                  ? Axis.horizontal
+                  : Axis.vertical,
+              child: MediaQuery.of(context).size.width >=
+                      MediaQuery.of(context).size.height
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.10,
+                          horizontal: MediaQuery.of(context).size.width * 0.05),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: buttonList()))
+                  : Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.1,
+                          horizontal: MediaQuery.of(context).size.width * 0.1),
+                      child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: buttonList())),
+            ),
+          ),
+          footer(context)[0],
+          footer(context)[1]
+        ],
       ),
     );
   }

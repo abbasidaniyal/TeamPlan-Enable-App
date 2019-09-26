@@ -76,6 +76,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(0, 177, 185, 1),
       appBar: AppBar(
         title: Text("Traffic Police : Accident Report"),
       ),
@@ -210,7 +211,6 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                     data["address"] = s["address"];
                     data["geotag"] = [
                       {
-                                
                         "latitude": s["latitude"],
                         "longitude": s["longiude"],
                       }
