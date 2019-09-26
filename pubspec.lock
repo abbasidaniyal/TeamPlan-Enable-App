@@ -79,7 +79,7 @@ packages:
   flutter_google_places:
     dependency: "direct main"
     description:
-      path: "custom_packages\\flutter_google_places-0.2.3"
+      path: "custom_packages/flutter_google_places-0.2.3"
       relative: true
     source: path
     version: "0.2.3"
@@ -91,7 +91,7 @@ packages:
   google_maps_webservice:
     dependency: transitive
     description:
-      path: "custom_packages\\google_maps_webservice-0.0.14"
+      path: "custom_packages/google_maps_webservice-0.0.14"
       relative: true
     source: path
     version: "0.0.14"
