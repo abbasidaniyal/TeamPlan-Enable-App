@@ -133,7 +133,24 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
               ),
             ],
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return Scaffold(
+                    backgroundColor: Color.fromRGBO(0, 177, 185, 1),
+                    body: Center(
+                      child: Text(
+                        "Under Development..",
+                        style: TextStyle(fontSize: 50),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            );
+          },
         ),
       ),
       SizedBox(
