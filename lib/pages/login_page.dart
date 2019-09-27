@@ -44,7 +44,7 @@ class _LoginPageSelectorState extends State<LoginPageSelector> {
         ),
       ),
       Container(
-        width: MediaQuery.of(context).orientation==Orientation.landscape? MediaQuery.of(context).size.width * 0.15:MediaQuery.of(context).size.width * 0.50,
+        width: MediaQuery.of(context).orientation==Orientation.portrait? MediaQuery.of(context).size.width * 0.5:MediaQuery.of(context).size.width * 0.30,
         height: MediaQuery.of(context).size.height * 0.1,
         child: RaisedButton(
           color: Colors.red,
@@ -53,6 +53,7 @@ class _LoginPageSelectorState extends State<LoginPageSelector> {
             padding: EdgeInsets.symmetric(vertical: 10),
             child: Text(
               "Submit",
+              // maxLines: 2,
               textAlign: TextAlign.center,
               textScaleFactor: 2,
               style: TextStyle(

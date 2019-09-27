@@ -13,7 +13,7 @@ class _TrafficPolicePageSelectorState extends State<TrafficPolicePageSelector> {
   List<Widget> buttonList() {
     return <Widget>[
       Container(
-        width: MediaQuery.of(context).size.width * 0.30,
+        width: MediaQuery.of(context).size.height * 0.30,
         height: MediaQuery.of(context).size.height * 0.40,
         child: FlatButton(
           child: Column(
@@ -58,9 +58,8 @@ class _TrafficPolicePageSelectorState extends State<TrafficPolicePageSelector> {
             MediaQuery.of(context).orientation == Orientation.portrait ? 50 : 0,
       ),
       Container(
-        width: MediaQuery.of(context).size.width * 0.30,
+        width: MediaQuery.of(context).size.height * 0.30,
         height: MediaQuery.of(context).size.height * 0.40,
-
         // alignment: Alignment.center,
         child: FlatButton(
           // shape: CircleBorder(),
@@ -77,7 +76,7 @@ class _TrafficPolicePageSelectorState extends State<TrafficPolicePageSelector> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  "Non Objection Certificate",
+                  "No Objection Certificate",
                   textAlign: TextAlign.center,
                   textScaleFactor: 2,
                   style: TextStyle(

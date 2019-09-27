@@ -14,7 +14,7 @@ class _HomePageSelectorState extends State<HomePageSelector> {
     return <Widget>[
       Container(
         width: MediaQuery.of(context).size.height * 0.30,
-        height: MediaQuery.of(context).size.height * 0.4,
+        height: MediaQuery.of(context).size.height * 0.40,
         child: FlatButton(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +56,7 @@ class _HomePageSelectorState extends State<HomePageSelector> {
       ),
       Container(
         width: MediaQuery.of(context).size.height * 0.30,
-        height: MediaQuery.of(context).size.height * 0.4,
+        height: MediaQuery.of(context).size.height * 0.40,
         child: FlatButton(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

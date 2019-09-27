@@ -13,8 +13,7 @@ class CityManagerSelectorPage extends StatefulWidget {
 class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
   List<Widget> buttonList() {
     return <Widget>[
-      Container(
-        width: MediaQuery.of(context).size.width * 0.2,
+      Container(width: MediaQuery.of(context).size.height * 0.30,
         height: MediaQuery.of(context).size.height * 0.40,
         child: FlatButton(
           child: Column(
@@ -60,7 +59,7 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
             MediaQuery.of(context).orientation == Orientation.portrait ? 50 : 0,
       ),
       Container(
-        width: MediaQuery.of(context).size.width * 0.2,
+        width: MediaQuery.of(context).size.height * 0.30,
         height: MediaQuery.of(context).size.height * 0.40,
         child: FlatButton(
           child: Column(
@@ -106,7 +105,7 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
             MediaQuery.of(context).orientation == Orientation.portrait ? 50 : 0,
       ),
       Container(
-        width: MediaQuery.of(context).size.width * 0.20,
+        width: MediaQuery.of(context).size.height * 0.30,
         height: MediaQuery.of(context).size.height * 0.40,
         child: FlatButton(
           child: Column(
