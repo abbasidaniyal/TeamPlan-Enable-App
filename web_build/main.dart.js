@@ -27254,7 +27254,7 @@ r=4
 l=P.h
 l=P.ap(["Content-type","application/json"],l,l)
 u=7
-return P.W(G.a08("https://cors-anywhere.herokuapp.com/http://51.158.179.237/api/accident-notice",C.ae.ei(a),l),$async$na)
+return P.W(G.a08("http://51.158.179.237/api/accident-notice",C.ae.ei(a),l),$async$na)
 case 7:n=c
 l=n
 P.bc(B.h0(U.fZ(l.e).c.a.i(0,"charset")).bM(0,l.x))
@@ -27287,7 +27287,7 @@ r=4
 l=P.h
 l=P.ap(["Content-type","application/json"],l,l)
 u=7
-return P.W(G.a08("https://cors-anywhere.herokuapp.com/http://51.158.179.237/api/noc-notice",C.ae.ei(a),l),$async$nb)
+return P.W(G.a08("http://51.158.179.237/api/noc-notice",C.ae.ei(a),l),$async$nb)
 case 7:n=c
 l=n
 P.bc(B.h0(U.fZ(l.e).c.a.i(0,"charset")).bM(0,l.x))
@@ -27320,7 +27320,7 @@ r=4
 l=P.h
 l=P.ap(["Content-type","application/json"],l,l)
 u=7
-return P.W(G.a08("https://cors-anywhere.herokuapp.com/http://51.158.179.237/api/waterlogging-collect",C.ae.ei(a),l),$async$nd)
+return P.W(G.a08("http://51.158.179.237/api/waterlogging-collect",C.ae.ei(a),l),$async$nd)
 case 7:n=c
 l=n
 P.bc(B.h0(U.fZ(l.e).c.a.i(0,"charset")).bM(0,l.x))
@@ -27353,7 +27353,7 @@ r=4
 l=P.h
 l=P.ap(["Content-type","application/json"],l,l)
 u=7
-return P.W(G.a08("https://cors-anywhere.herokuapp.com/http://51.158.179.237/api/potholes-collect",C.ae.ei(a),l),$async$nc)
+return P.W(G.a08("http://51.158.179.237/api/potholes-collect",C.ae.ei(a),l),$async$nc)
 case 7:n=c
 l=n
 P.bc(B.h0(U.fZ(l.e).c.a.i(0,"charset")).bM(0,l.x))
