@@ -1,4 +1,5 @@
 import 'package:enable/helpers/options.dart';
+import 'package:enable/pages/accepted_page.dart';
 import 'package:enable/pages/home_page.dart';
 import 'package:enable/providers/my_provider.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,9 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
         _key.currentState.reset();
         toggle();
         // Navigator.of(context).popUntil();
+        await Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return AcceptedPage(model.id);
+        }));
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
           builder: (context) {
             return HomePageSelector();

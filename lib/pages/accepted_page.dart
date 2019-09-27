@@ -11,7 +11,11 @@ class AcceptedPage extends StatelessWidget {
       backgroundColor: Color.fromRGBO(0, 177, 185, 1),
       body: Column(
         children: <Widget>[
-          Image.asset("assets/success.gif"),
+          Container(
+            margin: EdgeInsets.only(top:MediaQuery.of(context).size.height*0.1),
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: Image.asset("assets/success.gif")),
           Container(
             padding: EdgeInsets.all(5.0),
             child: Text(
@@ -33,11 +37,7 @@ class AcceptedPage extends StatelessWidget {
           RaisedButton(
               child: Text("Okay"),
               onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-                  builder: (context) {
-                    return HomePageSelector();
-                  },
-                ), (route) => route.isFirst);
+                Navigator.pop(context);
               }),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:enable/helpers/options.dart';
+import 'package:enable/pages/accepted_page.dart';
 import 'package:enable/pages/home_page.dart';
 import 'package:enable/providers/my_provider.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,9 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
         _key.currentState.reset();
         toggle();
         // Navigator.of(context).popUntil();
+        await Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return AcceptedPage(model.id);
+        }));
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
           builder: (context) {
             return HomePageSelector();
@@ -180,7 +184,6 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.1,
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
-                
                 child: Container(
                   color: Colors.white,
                   child: TextFormField(
@@ -203,7 +206,7 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
-                
+
                 alignment: Alignment.centerLeft,
                 width: MediaQuery.of(context).size.width,
                 // decoration: BoxDecoration(
@@ -234,7 +237,8 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                             decoration: InputDecoration(
                               labelText: "Location",
                             ),
-                            controller: TextEditingController(text: selectedText),
+                            controller:
+                                TextEditingController(text: selectedText),
                             enabled: false,
                             textAlign: TextAlign.left,
                             style: TextStyle(
@@ -247,7 +251,7 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                           onTap: () async {
                             final p = await PlacesAutocomplete.show(
                               context: context,
-                              apiKey: "AIzaSyD-bXnAW-uMa2qWIw4EVT_h-pkoJAx6Gx8",
+                              apiKey: apiKey,
                               components: [Component(Component.country, "in")],
                             ).catchError((onError) {
                               print(onError);
@@ -258,7 +262,7 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                             });
 
                             final geocoding = GoogleMapsPlaces(
-                              apiKey: "AIzaSyD-bXnAW-uMa2qWIw4EVT_h-pkoJAx6Gx8",
+                              apiKey: apiKey,
                             );
 
                             PlacesDetailsResponse data = await geocoding

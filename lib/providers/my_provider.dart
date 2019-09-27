@@ -4,11 +4,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class MainProvider extends ChangeNotifier {
-  String baseUrl = "http://51.158.179.237/api";
-  // String baseUrl ="https://cors-anywhere.herokuapp.com/http://51.158.179.237/api"; //For flutter web local
-
+  // String baseUrl = "http://51.158.179.237/api";
+  String baseUrl ="https://cors-anywhere.herokuapp.com/http://51.158.179.237/api"; //For flutter web local
+  String id;
   Future<bool> sendAccidentData(Map<String, dynamic> data) async {
     bool status = false;
+
     try {
       http.Response res = await http.post('$baseUrl/accident-notice',
           headers: {
@@ -20,6 +21,7 @@ class MainProvider extends ChangeNotifier {
       if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
       } else {
+        id = "ACC" + json.decode(res.body)['id'].toString();
         status = true;
       }
     } catch (e) {
@@ -42,6 +44,7 @@ class MainProvider extends ChangeNotifier {
       if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
       } else {
+        id = "NOC" + json.decode(res.body)['id'].toString();
         status = true;
       }
     } catch (e) {
@@ -64,6 +67,7 @@ class MainProvider extends ChangeNotifier {
       if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
       } else {
+        id = "WL" + json.decode(res.body)['id'].toString();
         status = true;
       }
     } catch (e) {
@@ -86,6 +90,7 @@ class MainProvider extends ChangeNotifier {
       if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
       } else {
+        id = "PH" + json.decode(res.body)['id'].toString();
         status = true;
       }
     } catch (e) {

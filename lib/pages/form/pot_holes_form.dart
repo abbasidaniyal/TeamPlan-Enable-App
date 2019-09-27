@@ -1,4 +1,5 @@
 import 'package:enable/helpers/options.dart';
+import 'package:enable/pages/accepted_page.dart';
 import 'package:enable/pages/home_page.dart';
 import 'package:enable/providers/my_provider.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,9 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
         _key.currentState.reset();
         toggle();
         // Navigator.of(context).popUntil();
+        await Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return AcceptedPage(model.id);
+        }));
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
           builder: (context) {
             return HomePageSelector();
@@ -247,7 +251,7 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
                           onTap: () async {
                             final p = await PlacesAutocomplete.show(
                               context: context,
-                              apiKey: "AIzaSyD-bXnAW-uMa2qWIw4EVT_h-pkoJAx6Gx8",
+                              apiKey: apiKey,
                               components: [Component(Component.country, "in")],
                             ).catchError((onError) {
                               print(onError);
@@ -258,7 +262,7 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
                             });
 
                             final geocoding = GoogleMapsPlaces(
-                              apiKey: "AIzaSyD-bXnAW-uMa2qWIw4EVT_h-pkoJAx6Gx8",
+                              apiKey: apiKey,
                             );
 
                             PlacesDetailsResponse data = await geocoding
