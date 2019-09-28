@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
       // value: (),
       child: MaterialApp(
         theme: ThemeData(
-          accentColor: Colors.white,
-          primaryColor: Colors.black,
+          accentColor: Colors.black,
+          primaryColor: Color.fromRGBO(0, 177, 185, 1),
         ),
         home: LoginPageSelector(),
       ),

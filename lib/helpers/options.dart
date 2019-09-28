@@ -1,4 +1,4 @@
-String apiKey = "AIzaSyD-bXnAW-uMa2qWIw4EVT_h-pkoJAx6Gx8";
+String apiKey = "AIzaSyBANaa6rsGAxro76EUQcYGoqLTxSw5ESws";
 List<String> districtsList = [
   'Faraskhana',
   'Koregaon',
@@ -48,7 +48,7 @@ List<String> reasonOfAccident = [
 
 List<String> typeOfNOC = [
   'Road digging',
-  'Yearly festival',
+  'Yearly Festival',
 ];
 
 List<String> typeOfEncroachment = [];

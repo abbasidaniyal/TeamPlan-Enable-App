@@ -12,12 +12,12 @@ import 'package:google_maps_webservice/geocoding.dart';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
-class AccidentFormPage extends StatefulWidget {
+class WaterLoggingFormPage extends StatefulWidget {
   @override
-  _AccidentFormPageState createState() => _AccidentFormPageState();
+  _WaterLoggingFormPageState createState() => _WaterLoggingFormPageState();
 }
 
-class _AccidentFormPageState extends State<AccidentFormPage> {
+class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
   GlobalKey<FormState> _key = GlobalKey<FormState>();
   Map<String, dynamic> data = {};
   bool isLoading = false;
@@ -28,7 +28,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
     if (_key.currentState.validate()) {
       _key.currentState.save();
       MainProvider model = Provider.of(context);
-      bool status = await model.sendAccidentData(data);
+      bool status = await model.sendWaterLoggingData(data);
       print("Status " + status.toString());
       if (status) {
         _key.currentState.reset();
@@ -73,9 +73,9 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
     });
   }
 
-  String selectedAccidentTypeValue;
-  String selectedDistrictValue;
-  String selectedAccidentReasonValue;
+  String selectedWaterLoggingTypeValue;
+  String selectedWardValue;
+  String selectedRoadNameValue;
 
   @override
   Widget build(BuildContext context) {
@@ -127,12 +127,12 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                                 margin: EdgeInsets.only(top: 25.0),
                                 width: MediaQuery.of(context).size.width * 0.10,
                                 // height: MediaQuery.of(context).size.height * 0.10,
-                                child: Image.asset("assets/policeman.png")),
+                                child: Image.asset("assets/manager.png")),
                             Container(
                               alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(vertical: 10),
                               child: Text(
-                                "Traffic Police",
+                                "City Manager",
                                 textAlign: TextAlign.center,
                                 textScaleFactor: 2,
                                 style: TextStyle(
@@ -149,7 +149,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
                 child: Text(
-                  "Report Accident",
+                  "Report Water Logging",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -157,146 +157,61 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
-                child: Container(
-                  color: Colors.white,
-                  child: DropdownButtonFormField<String>(
-                    // iconEnabledColor: Colors.white,
-
-                    validator: (s) {
-                      if (s == null) return "Select Traffic Division";
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      labelText: "Choose Traffic Division",
-                      border: OutlineInputBorder(),
-                      fillColor: Colors.white,
-                    ),
-                    value: selectedDistrictValue,
-                    onChanged: (s) {
-                      setState(() {
-                        selectedDistrictValue = s;
-                      });
-                    },
-                    items:
-                        districtsList.map<DropdownMenuItem<String>>((district) {
-                      return DropdownMenuItem<String>(
-                        child: Text(
-                          district,
-                        ),
-                        value: district,
-                      );
-                    }).toList(),
-                    onSaved: (selected) {
-                      data["traffic_division"] = selected;
-                    },
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
-                child: Container(
-                  color: Colors.white,
-                  child: DropdownButtonFormField<String>(
-                    validator: (s) {
-                      if (s == null) return "Please Select Type of Accident";
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        labelText: "Choose Type of Accident",
-                        border: OutlineInputBorder(),
-                        fillColor: Colors.white),
-                    value: selectedAccidentTypeValue,
-                    onChanged: (s) {
-                      setState(() {
-                        selectedAccidentTypeValue = s;
-                      });
-                    },
-                    items: typeOfAccident
-                        .map<DropdownMenuItem<String>>((accidentType) {
-                      return DropdownMenuItem<String>(
-                        child: Text(
-                          accidentType,
-                        ),
-                        value: accidentType,
-                      );
-                    }).toList(),
-                    onSaved: (selected) {
-                      data["type_of_accident"] = selected;
-                    },
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
-                child: Container(
-                  color: Colors.white,
-                  child: DropdownButtonFormField<String>(
-                    validator: (s) {
-                      if (s == null) return "Please Select Reason of Accident";
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        labelText: "Choose Reason of Accident",
-                        border: OutlineInputBorder(),
-                        fillColor: Colors.white),
-                    value: selectedAccidentReasonValue,
-                    onChanged: (s) {
-                      setState(() {
-                        selectedAccidentReasonValue = s;
-                      });
-                    },
-                    items: reasonOfAccident
-                        .map<DropdownMenuItem<String>>((accidentReason) {
-                      return DropdownMenuItem<String>(
-                        child: Text(
-                          accidentReason,
-                        ),
-                        value: accidentReason,
-                      );
-                    }).toList(),
-                    onSaved: (selected) {
-                      data["reason_of_accident"] = selected;
-                    },
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
-                child: Container(
-                  color: Colors.white,
-                  child: DateTimePickerFormField(
-                    format: DateFormat("dd/MM/yyy hh:mm:ss"),
-                    inputType: InputType.both,
-                    style: TextStyle(
-                      height: 2,
-                    ),
-                    onSaved: (s) {
-                      data["accident_time"] = s.toIso8601String();
-                    },
-                    editable: false,
-                    validator: (d) {
-                      if (d == null) {
-                        return "Date Time Invalid";
-                      }
-                      if (d.isAfter(DateTime.now())) return "Date is in Future";
-                      return null;
-                    },
-                    resetIcon: null,
-                    decoration: InputDecoration(
-                        labelText: "Date and Time of Accident",
-                        border: OutlineInputBorder(),
-                        fillColor: Colors.white,
-                        hasFloatingPlaceholder: true),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
                 alignment: Alignment.centerLeft,
                 width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(border: Border()),
-                // height: MediaQuery.of(context).size.height * 0.1,
+                height: MediaQuery.of(context).size.height * 0.1,
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
+                child: Container(
+                  color: Colors.white,
+                  child: TextFormField(
+                    validator: (s) {
+                      if (s == null) return "Please Enter Road Name";
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Enter Road Name",
+                    ),
+                    initialValue: selectedRoadNameValue,
+                    enableInteractiveSelection: true,
+                    onSaved: (selected) {
+                      data["road_name"] = selected;
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.1,
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
+                child: Container(
+                  color: Colors.white,
+                  child: TextFormField(
+                    validator: (s) {
+                      if (s == null) return "Please Enter Ward Number";
+                      return null;
+                    },
+                    keyboardType: TextInputType.numberWithOptions(
+                        decimal: true, signed: false),
+                    decoration: InputDecoration(
+                      labelText: "Enter Ward Number",
+                    ),
+                    initialValue: selectedWardValue,
+                    enableInteractiveSelection: true,
+                    onSaved: (selected) {
+                      data["ward_number"] = selected;
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
+
+                alignment: Alignment.centerLeft,
+                width: MediaQuery.of(context).size.width,
+                // decoration: BoxDecoration(
+                //     border: Border(bottom: BorderSide(width: 0.5))),
+                height: MediaQuery.of(context).size.height * 0.1,
                 child: Container(
                   color: Colors.white,
                   child: FormField<Map<String, dynamic>>(
@@ -307,7 +222,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                     },
                     onSaved: (s) {
                       data["address"] = s["address"];
-                      data["geotag"] = [
+                      data["geotags"] = [
                         {
                           "latitude": s["latitude"],
                           "longitude": s["longiude"],
@@ -321,8 +236,6 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                           child: TextField(
                             decoration: InputDecoration(
                               labelText: "Location",
-                              border: OutlineInputBorder(),
-                              fillColor: Colors.white,
                             ),
                             controller:
                                 TextEditingController(text: selectedText),
@@ -331,7 +244,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                             style: TextStyle(
                               fontSize: 16,
                               color: selectedText == null
-                                  ? Colors.black.withOpacity(0.8)
+                                  ? Colors.black.withOpacity(0.5)
                                   : Colors.black,
                             ),
                           ),
@@ -378,13 +291,8 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                 width: MediaQuery.of(context).size.width * 0.50,
                 child: RaisedButton(
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
-                  color: Colors.grey,
-                  child: isLoading
-                      ? CircularProgressIndicator()
-                      : Text(
-                          "Submit",
-                          style: TextStyle(color: Colors.black),
-                        ),
+                  child:
+                      isLoading ? CircularProgressIndicator() : Text("Submit"),
                   onPressed: isLoading ? () {} : submitForm,
                 ),
               ),
