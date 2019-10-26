@@ -129,7 +129,7 @@ class _NOCFormPageState extends State<NOCFormPage> {
                           children: <Widget>[
                             Container(
                                 margin: EdgeInsets.only(top: 25.0),
-                                width: MediaQuery.of(context).size.width * 0.10,
+                                width: MediaQuery.of(context).size.width * 0.05,
                                 // height: MediaQuery.of(context).size.height * 0.10,
                                 child: Image.asset("assets/policeman.png")),
                             Container(
@@ -138,7 +138,7 @@ class _NOCFormPageState extends State<NOCFormPage> {
                               child: Text(
                                 "Traffic Police",
                                 textAlign: TextAlign.center,
-                                textScaleFactor: 2,
+                                textScaleFactor: 1.5,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "Roboto",
