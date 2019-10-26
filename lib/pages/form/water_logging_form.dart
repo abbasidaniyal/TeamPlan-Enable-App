@@ -132,7 +132,7 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                               alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(vertical: 10),
                               child: Text(
-                                "City Manager",
+                                "PMC",
                                 textAlign: TextAlign.center,
                                 textScaleFactor: 2,
                                 style: TextStyle(

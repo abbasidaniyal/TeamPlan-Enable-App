@@ -5,10 +5,25 @@ import 'package:http/http.dart' as http;
 
 class MainProvider extends ChangeNotifier {
   String baseUrl = "http://51.158.179.237/api";
+
+  bool isDummy= true;
+
+  void switchDummyStatus(bool status){
+    isDummy=status;
+  }
+
+
   // String baseUrl ="https://cors-anywhere.herokuapp.com/http://51.158.179.237/api"; //For flutter web local
   String id;
   Future<bool> sendAccidentData(Map<String, dynamic> data) async {
     bool status = false;
+    print("Dummy : " + isDummy.toString());
+    if(isDummy){
+      id = "ACC00XX";
+      return true;
+    }
+
+
 
     try {
       http.Response res = await http.post('$baseUrl/accident-notice',
@@ -33,6 +48,10 @@ class MainProvider extends ChangeNotifier {
 
   Future<bool> sendNOCData(Map<String, dynamic> data) async {
     bool status = false;
+    if(isDummy){
+      id = "NOC00XX";
+      return true;
+    }
     try {
       http.Response res = await http.post('$baseUrl/noc-notice',
           headers: {
@@ -56,6 +75,10 @@ class MainProvider extends ChangeNotifier {
 
   Future<bool> sendWaterLoggingData(Map<String, dynamic> data) async {
     bool status = false;
+    if(isDummy){
+      id = "WL00XX";
+      return true;
+    }
     try {
       http.Response res = await http.post('$baseUrl/waterlogging-collect',
           headers: {
@@ -79,6 +102,10 @@ class MainProvider extends ChangeNotifier {
 
   Future<bool> sendPotHoleData(Map<String, dynamic> data) async {
     bool status = false;
+    if(isDummy){
+      id = "PH00XX";
+      return true;
+    }
     try {
       http.Response res = await http.post('$baseUrl/potholes-collect',
           headers: {

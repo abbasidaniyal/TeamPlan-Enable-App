@@ -1,9 +1,11 @@
 import 'package:enable/pages/city_manager_selector_page.dart';
 import 'package:enable/pages/home_page.dart';
 import 'package:enable/pages/traffic_police_selector_page.dart';
+import 'package:enable/providers/my_provider.dart';
 import 'package:enable/widgets/footer.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPageSelector extends StatefulWidget {
   @override
@@ -17,8 +19,9 @@ class _LoginPageSelectorState extends State<LoginPageSelector> {
   List<Widget> buttonList() {
     return <Widget>[
       Container(
-        width: MediaQuery.of(context).orientation==Orientation.landscape? MediaQuery.of(context).size.width * 0.30:MediaQuery.of(context).size.width * 0.50,
-        
+        width: MediaQuery.of(context).orientation == Orientation.landscape
+            ? MediaQuery.of(context).size.width * 0.30
+            : MediaQuery.of(context).size.width * 0.50,
         height: MediaQuery.of(context).size.height * 0.15,
         child: TextField(
           controller: username,
@@ -33,7 +36,9 @@ class _LoginPageSelectorState extends State<LoginPageSelector> {
       //       MediaQuery.of(context).orientation == Orientation.portrait ? 50 : 0,
       // ),
       Container(
-        width: MediaQuery.of(context).orientation==Orientation.landscape? MediaQuery.of(context).size.width * 0.30:MediaQuery.of(context).size.width * 0.50,
+        width: MediaQuery.of(context).orientation == Orientation.landscape
+            ? MediaQuery.of(context).size.width * 0.30
+            : MediaQuery.of(context).size.width * 0.50,
         height: MediaQuery.of(context).size.height * 0.15,
         child: TextField(
           controller: password,
@@ -44,7 +49,9 @@ class _LoginPageSelectorState extends State<LoginPageSelector> {
         ),
       ),
       Container(
-        width: MediaQuery.of(context).orientation==Orientation.portrait? MediaQuery.of(context).size.width * 0.5:MediaQuery.of(context).size.width * 0.30,
+        width: MediaQuery.of(context).orientation == Orientation.portrait
+            ? MediaQuery.of(context).size.width * 0.5
+            : MediaQuery.of(context).size.width * 0.30,
         height: MediaQuery.of(context).size.height * 0.1,
         child: RaisedButton(
           color: Colors.red,
@@ -64,12 +71,44 @@ class _LoginPageSelectorState extends State<LoginPageSelector> {
           ),
           onPressed: () {
             print(username.text + password.text);
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return HomePageSelector();
-              }),
-            );
+
+            MainProvider model = Provider.of(context);
+            if (username.text == "enable" && password.text == "original") {
+              model.switchDummyStatus(false);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return HomePageSelector();
+                }),
+              );
+            } else if (username.text == "enabledummy" &&
+                password.text == "dummydata") {
+              model.switchDummyStatus(true);
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return HomePageSelector();
+                }),
+              );
+            } else {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text("Incorrect Username or Password"),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text("Ok"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      )
+                    ],
+                  );
+                },
+              );
+            }
           },
         ),
       ),
