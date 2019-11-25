@@ -1,4 +1,5 @@
 import 'package:enable/pages/form/accident_form.dart';
+import 'package:enable/pages/form/enchroachment_form.dart';
 import 'package:enable/pages/form/pot_holes_form.dart';
 import 'package:enable/pages/form/water_logging_form.dart';
 import 'package:enable/widgets/footer.dart';
@@ -13,7 +14,8 @@ class CityManagerSelectorPage extends StatefulWidget {
 class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
   List<Widget> buttonList() {
     return <Widget>[
-      Container(width: MediaQuery.of(context).size.height * 0.30,
+      Container(
+        width: MediaQuery.of(context).size.height * 0.30,
         height: MediaQuery.of(context).size.height * 0.40,
         child: FlatButton(
           child: Column(
@@ -121,7 +123,7 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  "Report Faulty Signals",
+                  "Report Encroachments",
                   textAlign: TextAlign.center,
                   textScaleFactor: 2,
                   style: TextStyle(
@@ -137,15 +139,16 @@ class _CityManagerSelectorPageState extends State<CityManagerSelectorPage> {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return Scaffold(
-                    backgroundColor: Color.fromRGBO(0, 177, 185, 1),
-                    body: Center(
-                      child: Text(
-                        "Under Development..",
-                        style: TextStyle(fontSize: 50),
-                      ),
-                    ),
-                  );
+                  return EncroachmentFormPage();
+                  // return Scaffold(
+                  //   backgroundColor: Color.fromRGBO(0, 177, 185, 1),
+                  //   body: Center(
+                  //     child: Text(
+                  //       "Under Development..",
+                  //       style: TextStyle(fontSize: 50),
+                  //     ),
+                  //   ),
+                  // );
                 },
               ),
             );

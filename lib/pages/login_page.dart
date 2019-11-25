@@ -69,28 +69,16 @@ class _LoginPageSelectorState extends State<LoginPageSelector> {
               ),
             ),
           ),
-          onPressed: () {
-            print(username.text + password.text);
+          onPressed: () async {
+            // print(username.text + password.text);
 
             MainProvider model = Provider.of(context);
-            if (username.text == "enable" && password.text == "original") {
-              model.switchDummyStatus(false);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return HomePageSelector();
-                }),
-              );
-            } else if (username.text == "enabledummy" &&
-                password.text == "dummydata") {
-              model.switchDummyStatus(true);
+            bool status = await model.login(username.text, password.text);
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return HomePageSelector();
-                }),
-              );
+            if (status) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return HomePageSelector();
+              }));
             } else {
               showDialog(
                 context: context,

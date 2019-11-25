@@ -19,21 +19,27 @@ class NOCFormPage extends StatefulWidget {
 
 class _NOCFormPageState extends State<NOCFormPage> {
   GlobalKey<FormState> _key = GlobalKey<FormState>();
-  Map<String, dynamic> data = {"geotags": []};
+  Map<String, dynamic> data = {"routePoints": []};
   bool isLoading = false;
   String selectedTextStart;
   String selectedTextEnd;
   List<String> selectedText = [];
   int count = -1;
   List<Map<String, String>> via = [];
+
   void submitForm() async {
     toggle();
     if (_key.currentState.validate()) {
-      print(data);
       _key.currentState.save();
+      // print(data);
+
+      data["routePoints"].add(data["end_location_geotag"]);
+
+      data["routePoints"].insert(0, data["start_location_geotag"]);
+
       MainProvider model = Provider.of(context);
       bool status = await model.sendNOCData(data);
-      print("Status " + status.toString());
+      // print("Status " + status.toString());
       if (status) {
         _key.currentState.reset();
         toggle();
@@ -187,7 +193,7 @@ class _NOCFormPageState extends State<NOCFormPage> {
                       );
                     }).toList(),
                     onSaved: (selected) {
-                      data["traffic_division"] = selected;
+                      data["trafficDivision"] = selected;
                     },
                   ),
                 ),
@@ -198,11 +204,11 @@ class _NOCFormPageState extends State<NOCFormPage> {
                   color: Colors.white,
                   child: DropdownButtonFormField<String>(
                     validator: (s) {
-                      if (s == null) return "Please Select Reason of NOC";
+                      if (s == null) return "Please Select Type of NOC";
                       return null;
                     },
                     decoration:
-                        InputDecoration(labelText: "Choose Reason of NOC"),
+                        InputDecoration(labelText: "Choose Type of NOC"),
                     value: selectedNOCTypeValue,
                     onChanged: (s) {
                       setState(() {
@@ -218,7 +224,7 @@ class _NOCFormPageState extends State<NOCFormPage> {
                       );
                     }).toList(),
                     onSaved: (selected) {
-                      data["reason_of_noc"] = selected;
+                      data["nocType"] = selected;
                     },
                   ),
                 ),
@@ -229,16 +235,16 @@ class _NOCFormPageState extends State<NOCFormPage> {
                   color: Colors.white,
                   child: TextFormField(
                     validator: (s) {
-                      if (s == null) return "Please Enter Type of NOC";
+                      if (s == null) return "Please Enter Reason of NOC";
                       return null;
                     },
                     decoration: InputDecoration(
-                      labelText: "Enter Type of NOC",
+                      labelText: "Enter Reason of NOC",
                     ),
                     initialValue: selectedNOCReasonValue,
                     enableInteractiveSelection: true,
                     onSaved: (selected) {
-                      data["type_of_noc"] = selected;
+                      data["nocReason"] = selected;
                     },
                   ),
                 ),
@@ -247,16 +253,31 @@ class _NOCFormPageState extends State<NOCFormPage> {
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
                 child: Container(
                   color: Colors.white,
-                  child: DateTimePickerFormField(
+                  child: DateTimeField(
+                    onShowPicker: (context, currentValue) async {
+                      final date = await showDatePicker(
+                          context: context,
+                          firstDate: DateTime(1900),
+                          initialDate: currentValue ?? DateTime.now(),
+                          lastDate: DateTime(2100));
+                      if (date != null) {
+                        final time = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.fromDateTime(
+                              currentValue ?? DateTime.now()),
+                        );
+                        return DateTimeField.combine(date, time);
+                      } else {
+                        return currentValue;
+                      }
+                    },
                     format: DateFormat("dd/MM/yyy hh:mm:ss"),
                     onSaved: (s) {
-                      data["date_time"] = s.toIso8601String();
+                      data["startTime"] = s.toIso8601String();
                     },
-                    inputType: InputType.both,
                     style: TextStyle(
                       height: 2,
                     ),
-                    editable: false,
                     validator: (d) {
                       if (d == null) {
                         return "Date Time Invalid";
@@ -276,16 +297,31 @@ class _NOCFormPageState extends State<NOCFormPage> {
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
                 child: Container(
                   color: Colors.white,
-                  child: DateTimePickerFormField(
+                  child: DateTimeField(
+                    onShowPicker: (context, currentValue) async {
+                      final date = await showDatePicker(
+                          context: context,
+                          firstDate: DateTime(1900),
+                          initialDate: currentValue ?? DateTime.now(),
+                          lastDate: DateTime(2100));
+                      if (date != null) {
+                        final time = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.fromDateTime(
+                              currentValue ?? DateTime.now()),
+                        );
+                        return DateTimeField.combine(date, time);
+                      } else {
+                        return currentValue;
+                      }
+                    },
                     format: DateFormat("dd/MM/yyy hh:mm:ss"),
-                    inputType: InputType.both,
                     onSaved: (s) {
-                      data["date_time"] = s.toIso8601String();
+                      data["endTime"] = s.toIso8601String();
                     },
                     style: TextStyle(
                       height: 2,
                     ),
-                    editable: false,
                     validator: (d) {
                       if (d == null) {
                         return "Date Time Invalid";
@@ -399,7 +435,7 @@ class _NOCFormPageState extends State<NOCFormPage> {
                                 return null;
                               },
                               onSaved: (s) {
-                                data["geotags"].insert(
+                                data["routePoints"].insert(
                                   index,
                                   {
                                     "latitude": s["latitude"],
@@ -562,7 +598,6 @@ class _NOCFormPageState extends State<NOCFormPage> {
                       selectedText.add(null);
                       count++;
                     });
-                    print(count);
                   },
                 ),
               ),

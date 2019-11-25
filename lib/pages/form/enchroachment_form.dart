@@ -12,12 +12,12 @@ import 'package:google_maps_webservice/geocoding.dart';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
-class PotholesFormPage extends StatefulWidget {
+class EncroachmentFormPage extends StatefulWidget {
   @override
-  _PotholesFormPageState createState() => _PotholesFormPageState();
+  _EncroachmentFormPageState createState() => _EncroachmentFormPageState();
 }
 
-class _PotholesFormPageState extends State<PotholesFormPage> {
+class _EncroachmentFormPageState extends State<EncroachmentFormPage> {
   GlobalKey<FormState> _key = GlobalKey<FormState>();
   Map<String, dynamic> data = {};
   bool isLoading = false;
@@ -29,7 +29,7 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
     if (_key.currentState.validate()) {
       _key.currentState.save();
       MainProvider model = Provider.of(context);
-      bool status = await model.sendPotHoleData(data);
+      bool status = await model.sendEnchroachmentData(data);
       // print("Status " + status.toString());
       if (status) {
         _key.currentState.reset();
@@ -74,7 +74,6 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
     });
   }
 
-  String selectedPotholesTypeValue;
   String selectedWardValue;
   String selectedRoadNameValue;
 
@@ -133,7 +132,7 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
                               alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(vertical: 10),
                               child: Text(
-                                "PMC",
+                                "Encroachments",
                                 textAlign: TextAlign.center,
                                 textScaleFactor: 1.5,
                                 style: TextStyle(
@@ -150,7 +149,7 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
                 child: Text(
-                  "Report Pot Holes",
+                  "Report Encroachments",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -158,43 +157,6 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
-                child: Container(
-                  color: Colors.white,
-                  child: DropdownButtonFormField<String>(
-                    // iconEnabledColor: Colors.white,
-
-                    validator: (s) {
-                      if (s == null) return "Select Traffic Division";
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      labelText: "Choose Traffic Division",
-                      border: OutlineInputBorder(),
-                      fillColor: Colors.white,
-                    ),
-                    value: selectedDistrictValue,
-                    onChanged: (s) {
-                      setState(() {
-                        selectedDistrictValue = s;
-                      });
-                    },
-                    items:
-                        districtsList.map<DropdownMenuItem<String>>((district) {
-                      return DropdownMenuItem<String>(
-                        child: Text(
-                          district,
-                        ),
-                        value: district,
-                      );
-                    }).toList(),
-                    onSaved: (selected) {
-                      data["trafficDivision"] = selected;
-                    },
-                  ),
-                ),
-              ),
-              Container(
                 alignment: Alignment.centerLeft,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.1,
@@ -203,43 +165,21 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
                   color: Colors.white,
                   child: TextFormField(
                     validator: (s) {
-                      if (s == null) return "Please Enter Area Name";
+                      if (s == null) return "Please Enter Business Name";
                       return null;
                     },
                     decoration: InputDecoration(
-                      labelText: "Enter Area Name",
+                      labelText: "Enter Business Name",
                     ),
                     initialValue: selectedRoadNameValue,
                     enableInteractiveSelection: true,
                     onSaved: (selected) {
-                      data["areaName"] = selected;
+                      data["businessName"] = selected;
                     },
                   ),
                 ),
               ),
-              Container(
-                alignment: Alignment.centerLeft,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.1,
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
-                child: Container(
-                  color: Colors.white,
-                  child: TextFormField(
-                    validator: (s) {
-                      if (s == null) return "Please Enter Ward Name";
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      labelText: "Enter Ward Name",
-                    ),
-                    initialValue: selectedWardValue,
-                    enableInteractiveSelection: true,
-                    onSaved: (selected) {
-                      data["wardName"] = selected;
-                    },
-                  ),
-                ),
-              ),
+              
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
 
@@ -258,10 +198,12 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
                     },
                     onSaved: (s) {
                       data["address"] = s["address"];
-                      data["location"] = {
-                        "latitude": s["latitude"],
-                        "longitude": s["longiude"],
-                      };
+                      data["location"] = 
+                        {
+                          "latitude": s["latitude"],
+                          "longitude": s["longiude"],
+                        }
+                      ;
                     },
                     builder: (FormFieldState<Map<String, dynamic>> state) {
                       return Container(
@@ -315,6 +257,43 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
                           },
                         ),
                       );
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
+                child: Container(
+                  color: Colors.white,
+                  child: DropdownButtonFormField<String>(
+                    // iconEnabledColor: Colors.white,
+
+                    validator: (s) {
+                      if (s == null) return "Select Traffic Division";
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Choose Traffic Division",
+                      border: OutlineInputBorder(),
+                      fillColor: Colors.white,
+                    ),
+                    value: selectedDistrictValue,
+                    onChanged: (s) {
+                      setState(() {
+                        selectedDistrictValue = s;
+                      });
+                    },
+                    items:
+                        districtsList.map<DropdownMenuItem<String>>((district) {
+                      return DropdownMenuItem<String>(
+                        child: Text(
+                          district,
+                        ),
+                        value: district,
+                      );
+                    }).toList(),
+                    onSaved: (selected) {
+                      data["trafficDivision"] = selected;
                     },
                   ),
                 ),

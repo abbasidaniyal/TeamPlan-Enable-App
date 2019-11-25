@@ -29,7 +29,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
       _key.currentState.save();
       MainProvider model = Provider.of(context);
       bool status = await model.sendAccidentData(data);
-      print("Status " + status.toString());
+      // print("Status " + status.toString());
       if (status) {
         _key.currentState.reset();
         toggle();
@@ -188,7 +188,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                       );
                     }).toList(),
                     onSaved: (selected) {
-                      data["traffic_division"] = selected;
+                      data["trafficDivision"] = selected;
                     },
                   ),
                 ),
@@ -222,7 +222,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                       );
                     }).toList(),
                     onSaved: (selected) {
-                      data["type_of_accident"] = selected;
+                      data["accidentType"] = selected;
                     },
                   ),
                 ),
@@ -256,7 +256,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                       );
                     }).toList(),
                     onSaved: (selected) {
-                      data["reason_of_accident"] = selected;
+                      data["accidentReason"] = selected;
                     },
                   ),
                 ),
@@ -265,16 +265,36 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
                 child: Container(
                   color: Colors.white,
-                  child: DateTimePickerFormField(
+                  child: DateTimeField(
                     format: DateFormat("dd/MM/yyy hh:mm:ss"),
-                    inputType: InputType.both,
+                    focusNode: FocusNode(),
+                    onChanged: (s) {
+                      // Navigator.pop(context);
+                    },
                     style: TextStyle(
                       height: 2,
                     ),
                     onSaved: (s) {
-                      data["accident_time"] = s.toIso8601String();
+                      // print("SAVE WORK");
+                      data["accidentTime"] = s.toIso8601String();
                     },
-                    editable: false,
+                    onShowPicker: (context, currentValue) async {
+                      final date = await showDatePicker(
+                          context: context,
+                          firstDate: DateTime(1900),
+                          initialDate: currentValue ?? DateTime.now(),
+                          lastDate: DateTime(2100));
+                      if (date != null) {
+                        final time = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.fromDateTime(
+                              currentValue ?? DateTime.now()),
+                        );
+                        return DateTimeField.combine(date, time);
+                      } else {
+                        return currentValue;
+                      }
+                    },
                     validator: (d) {
                       if (d == null) {
                         return "Date Time Invalid";
@@ -282,12 +302,12 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                       if (d.isAfter(DateTime.now())) return "Date is in Future";
                       return null;
                     },
-                    resetIcon: null,
+                    autofocus: false,
                     decoration: InputDecoration(
                         labelText: "Date and Time of Accident",
                         border: OutlineInputBorder(),
                         fillColor: Colors.white,
-                        hasFloatingPlaceholder: true),
+                        hasFloatingPlaceholder: false),
                   ),
                 ),
               ),
@@ -307,12 +327,10 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                     },
                     onSaved: (s) {
                       data["address"] = s["address"];
-                      data["geotag"] = [
-                        {
-                          "latitude": s["latitude"],
-                          "longitude": s["longiude"],
-                        }
-                      ];
+                      data["location"] = {
+                        "latitude": s["latitude"],
+                        "longitude": s["longiude"],
+                      };
                     },
                     builder: (FormFieldState<Map<String, dynamic>> state) {
                       return Container(

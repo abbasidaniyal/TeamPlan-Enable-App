@@ -22,6 +22,7 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
   Map<String, dynamic> data = {};
   bool isLoading = false;
   String selectedText;
+  String selectedDistrictValue;
 
   void submitForm() async {
     toggle();
@@ -29,7 +30,7 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
       _key.currentState.save();
       MainProvider model = Provider.of(context);
       bool status = await model.sendWaterLoggingData(data);
-      print("Status " + status.toString());
+      // print("Status " + status.toString());
       if (status) {
         _key.currentState.reset();
         toggle();
@@ -174,7 +175,7 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                     initialValue: selectedRoadNameValue,
                     enableInteractiveSelection: true,
                     onSaved: (selected) {
-                      data["road_name"] = selected;
+                      data["areaName"] = selected;
                     },
                   ),
                 ),
@@ -188,18 +189,16 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                   color: Colors.white,
                   child: TextFormField(
                     validator: (s) {
-                      if (s == null) return "Please Enter Ward Number";
+                      if (s == null) return "Please Enter Ward Name";
                       return null;
                     },
-                    keyboardType: TextInputType.numberWithOptions(
-                        decimal: true, signed: false),
                     decoration: InputDecoration(
-                      labelText: "Enter Ward Number",
+                      labelText: "Enter Ward Name",
                     ),
                     initialValue: selectedWardValue,
                     enableInteractiveSelection: true,
                     onSaved: (selected) {
-                      data["ward_number"] = selected;
+                      data["wardName"] = selected;
                     },
                   ),
                 ),
@@ -222,12 +221,12 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                     },
                     onSaved: (s) {
                       data["address"] = s["address"];
-                      data["geotags"] = [
+                      data["location"] = 
                         {
                           "latitude": s["latitude"],
                           "longitude": s["longiude"],
                         }
-                      ];
+                      ;
                     },
                     builder: (FormFieldState<Map<String, dynamic>> state) {
                       return Container(
@@ -281,6 +280,43 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                           },
                         ),
                       );
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10.0),
+                child: Container(
+                  color: Colors.white,
+                  child: DropdownButtonFormField<String>(
+                    // iconEnabledColor: Colors.white,
+
+                    validator: (s) {
+                      if (s == null) return "Select Traffic Division";
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Choose Traffic Division",
+                      border: OutlineInputBorder(),
+                      fillColor: Colors.white,
+                    ),
+                    value: selectedDistrictValue,
+                    onChanged: (s) {
+                      setState(() {
+                        selectedDistrictValue = s;
+                      });
+                    },
+                    items:
+                        districtsList.map<DropdownMenuItem<String>>((district) {
+                      return DropdownMenuItem<String>(
+                        child: Text(
+                          district,
+                        ),
+                        value: district,
+                      );
+                    }).toList(),
+                    onSaved: (selected) {
+                      data["trafficDivision"] = selected;
                     },
                   ),
                 ),

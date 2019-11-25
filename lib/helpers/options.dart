@@ -1,58 +1,60 @@
 String apiKey = "AIzaSyBANaa6rsGAxro76EUQcYGoqLTxSw5ESws";
 List<String> districtsList = [
-  'Faraskhana',
-  'Koregaon',
-  'Kothrud',
-  'Lashkar',
-  'Sahakar Nagar',
-  'Samartha',
-  'Shivaji Nagar',
-  'Vishrambag',
-  'Yerwada',
-  'Chaturshrungi',
-  'Khadaki',
-  'Vimantal',
-  'Hadapsar',
-  'Wanwadi',
-  'Swargate',
-  'Bundgarden',
-  'Warje',
-  'Deccan',
-  'Dattawadi',
-  'Bharati Vidyapeeth',
+
+  "FARASKHANA",
+  "KOREGAON",
+  "KOTHRUD",
+  "LASHKAR",
+  "SAHAKAR_NAGAR",
+  "SAMARTHA",
+  "SHIVAJI_NAGAR",
+  "VISHRAMBAG",
+  "YERWADA",
+  "CHATURSHRUNGI",
+  "KHADAKI",
+  "KHADAK",
+  "KONDHAWA",
+  "DHANKAWADI",
+  "VIMANTAL",
+  "HADAPSAR",
+  "WANWADI",
+  "SWARGATE",
+  "BUNDGARDEN",
+  "WARJE",
+  "DECCAN",
+  "DATTAWADI",
+  "BHARATI_VIDYAPEETH",
+  "UNKNOWN"
 ];
 
 List<String> typeOfAccident = [
-  'Mild',
-  'Fatal',
-  'Grievance',
+  'MILD',
+  'FATAL',
+  'GRIEVANCE',
 ];
 
 List<String> reasonOfAccident = [
-  'Collision from front',
-  'Collision from back',
-  'Bumper to bumper collision',
-  'Right side collision',
-  'Head on collision',
-  'Left side collision',
-  'Collision due to opposite direction drive',
-  'Collided on wall on right side of canal',
-  'Collided to iron platform',
-  'Collision by PMT bus while waiting on bus stop',
-  'Collision by car while standing in the chowk',
-  'Collision by truck while standing in the chowk',
-  'Collision by unknown vehicle',
-  'Collision during road crossing',
-  'Others',
+
+  "FROM_FRONT",
+  "FROM_BACK",
+  "BUMPER_TO_BUMPER",
+  "RIGHT_SIDE",
+  "HEAD_ON",
+  "LEFT_SIDE",
+  "DUE_TO_OPPOSITE_DIRECTION_DRIVE",
+  "COLLIDED_ON_WALL_ON_RIGHT_SIDE_OF_CANAL",
+  "COLLIDED_TO_IRON_PLATFORM",
+  "BY_PMT_BUS_WHILE_WAITING_ON_BUS_STOP",
+  "BY_CAR_WHILE_STANDING_IN_THE_CHOWK",
+  "BY_TRUCK_WHILE_STANDING_IN_THE_CHOWK",
+  "UNKNOWN_VEHICLE",
+  "DURING_ROAD_CROSSING",
+  "OTHERS",
 ];
 
 List<String> typeOfNOC = [
-  'Road digging',
-  'Yearly Festival',
+  "ROAD_DIGGING", "YEARLY_FESTIVAL","COMBINED"
 ];
 
-List<String> typeOfEncroachment = [];
-
-List<String> reasonOfEncroachment = [];
 
 List<String> typeOfPotHole = ["Pot holes", "Water logging"];
