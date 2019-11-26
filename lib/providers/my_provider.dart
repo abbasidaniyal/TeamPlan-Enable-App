@@ -12,7 +12,7 @@ class MainProvider extends ChangeNotifier {
   String authToken;
 
   Future<bool> login(String username, String password) async {
-    // print("Reaching");
+    print("Reaching");
     bool status = false;
     try {
       http.Response res = await http.post("$baseUrl/api/login",
@@ -25,7 +25,7 @@ class MainProvider extends ChangeNotifier {
       // print(res.toString());
 
       // print("STATUS CODE " + res.statusCode.toString());
-      // print("BODY " + res.headers.toString());
+      print("BODY " + res.headers.toString());
 
       if (res.statusCode != 200 && res.statusCode != 201) return false;
 
@@ -90,7 +90,7 @@ class MainProvider extends ChangeNotifier {
             'accept': '*/*',
           },
           body: json.encode(data));
-      // print(res.body);
+      print(res.body);
 
       if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
