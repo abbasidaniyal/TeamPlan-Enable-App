@@ -1,4 +1,4 @@
-String apiKey = "AIzaSyBANaa6rsGAxro76EUQcYGoqLTxSw5ESws";
+String apiKey = "<API KEY HERE>";
 List<String> districtsList = [
 
   "FARASKHANA",
