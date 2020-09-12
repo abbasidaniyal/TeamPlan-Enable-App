@@ -20,8 +20,8 @@ flutter build web --dart-define=BASE_URL="<BACKEND_URL>"  --dart-define=GOOGLE_A
 Example : flutter build web --dart-define=BASE_URL="http://51.158.68.161/staging"  --dart-define=GOOGLE_API_KEY="GOOGLE_API_KEY"
 
 The Google API key should have the following services active : 
-- 
-
+- [Geocoding API ](https://developers.google.com/maps/documentation/geocoding/overview)
+- [Places API](https://developers.google.com/places/web-service/overview)
 
 To build APK, run
 ```shell
