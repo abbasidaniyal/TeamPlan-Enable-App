@@ -17,6 +17,11 @@ Once Flutter has been successfully installed, follow these steps to build the Co
 ```shell
 flutter build web --dart-define=BASE_URL="<BACKEND_URL>"  --dart-define=GOOGLE_API_KEY="<GOOGLE_API_KEY>" 
 ```
+Example : flutter build web --dart-define=BASE_URL="http://51.158.68.161/staging"  --dart-define=GOOGLE_API_KEY="GOOGLE_API_KEY"
+
+The Google API key should have the following services active : 
+- 
+
 
 To build APK, run
 ```shell

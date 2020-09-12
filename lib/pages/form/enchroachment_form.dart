@@ -228,7 +228,7 @@ class _EncroachmentFormPageState extends State<EncroachmentFormPage> {
                           onTap: () async {
                             final p = await PlacesAutocomplete.show(
                               context: context,
-                              apiKey: model.apiKey,
+                              apiKey: MainProvider.apiKey,
                               components: [Component(Component.country, "in")],
                             ).catchError((onError) {
                               
@@ -239,7 +239,7 @@ class _EncroachmentFormPageState extends State<EncroachmentFormPage> {
                             });
 
                             final geocoding = GoogleMapsPlaces(
-                              apiKey: model.apiKey,
+                              apiKey: MainProvider.apiKey,
                             );
 
                             PlacesDetailsResponse data = await geocoding

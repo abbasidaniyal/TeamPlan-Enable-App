@@ -285,7 +285,7 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
                           onTap: () async {
                             final p = await PlacesAutocomplete.show(
                               context: context,
-                              apiKey: model.apiKey,
+                              apiKey: MainProvider.apiKey,
                               components: [Component(Component.country, "in")],
                             ).catchError((onError) {
                               return;
@@ -295,7 +295,7 @@ class _PotholesFormPageState extends State<PotholesFormPage> {
                             });
 
                             final geocoding = GoogleMapsPlaces(
-                              apiKey: model.apiKey,
+                              apiKey: MainProvider.apiKey,
                             );
 
                             PlacesDetailsResponse data = await geocoding

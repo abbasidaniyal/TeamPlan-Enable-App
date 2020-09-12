@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class MainProvider extends ChangeNotifier {
   static const String baseUrl = String.fromEnvironment("BASE_URL");
-  String apiKey = String.fromEnvironment("GOOGLE_API_KEY");
+  static const String apiKey = String.fromEnvironment("GOOGLE_API_KEY");
   String authToken;
 
   Future<bool> login(String username, String password) async {

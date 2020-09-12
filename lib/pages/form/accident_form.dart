@@ -355,7 +355,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                           onTap: () async {
                             final p = await PlacesAutocomplete.show(
                               context: context,
-                              apiKey: model.apiKey,
+                              apiKey: MainProvider.apiKey,
                               components: [Component(Component.country, "in")],
                             ).catchError((onError) {
                               return;
@@ -365,7 +365,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                             });
 
                             final geocoding = GoogleMapsPlaces(
-                              apiKey: model.apiKey,
+                              apiKey: MainProvider.apiKey,
                             );
 
                             PlacesDetailsResponse data = await geocoding
