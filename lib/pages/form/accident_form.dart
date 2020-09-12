@@ -29,7 +29,6 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
       _key.currentState.save();
       MainProvider model = Provider.of(context);
       bool status = await model.sendAccidentData(data);
-      // print("Status " + status.toString());
       if (status) {
         _key.currentState.reset();
         toggle();
@@ -79,6 +78,7 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    MainProvider model = Provider.of(context);
     return Scaffold(
       backgroundColor: Color.fromRGBO(0, 177, 185, 1),
       body: Container(
@@ -275,7 +275,6 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                       height: 2,
                     ),
                     onSaved: (s) {
-                      // print("SAVE WORK");
                       data["accidentTime"] = s.toIso8601String();
                     },
                     onShowPicker: (context, currentValue) async {
@@ -356,10 +355,9 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                           onTap: () async {
                             final p = await PlacesAutocomplete.show(
                               context: context,
-                              apiKey: apiKey,
+                              apiKey: model.apiKey,
                               components: [Component(Component.country, "in")],
                             ).catchError((onError) {
-                              print(onError);
                               return;
                             });
                             setState(() {
@@ -367,13 +365,12 @@ class _AccidentFormPageState extends State<AccidentFormPage> {
                             });
 
                             final geocoding = GoogleMapsPlaces(
-                              apiKey: apiKey,
+                              apiKey: model.apiKey,
                             );
 
                             PlacesDetailsResponse data = await geocoding
                                 .getDetailsByPlaceId(p?.placeId)
                                 .catchError((onError) {
-                              print(onError);
                               return;
                             });
                             Map<String, dynamic> addressData = {

@@ -22,7 +22,6 @@ class _TrafficPolicePageSelectorState extends State<TrafficPolicePageSelector> {
             children: <Widget>[
               Container(
                   margin: EdgeInsets.only(top: 25.0),
-                  // width: MediaQuery.of(context).size.width * 0.10,
                   height: MediaQuery.of(context).size.height * 0.20,
                   child: Image.asset("assets/accident.png")),
               Container(
@@ -60,16 +59,13 @@ class _TrafficPolicePageSelectorState extends State<TrafficPolicePageSelector> {
       Container(
         width: MediaQuery.of(context).size.height * 0.30,
         height: MediaQuery.of(context).size.height * 0.40,
-        // alignment: Alignment.center,
         child: FlatButton(
-          // shape: CircleBorder(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Container(
                   margin: EdgeInsets.only(top: 25.0),
-                  // width: MediaQuery.of(context).size.width * 0.10,
                   height: MediaQuery.of(context).size.height * 0.20,
                   child: Image.asset("assets/policeman.png")),
               Container(
@@ -116,9 +112,7 @@ class _TrafficPolicePageSelectorState extends State<TrafficPolicePageSelector> {
                 children: <Widget>[
                   Container(
                     alignment: Alignment.topLeft,
-                    // margin: EdgeInsets.only(top: 10.0),
                     width: MediaQuery.of(context).size.width * 0.20,
-                    // height: MediaQuery.of(context).size.height * 0.10,
                     child: Image.asset("assets/logo.png"),
                   ),
                   Container(
@@ -145,7 +139,6 @@ class _TrafficPolicePageSelectorState extends State<TrafficPolicePageSelector> {
                         Container(
                             margin: EdgeInsets.only(top: 25.0),
                             width: MediaQuery.of(context).size.width * 0.05,
-                            // height: MediaQuery.of(context).size.height * 0.10,
                             child: Image.asset("assets/policeman.png")),
                         Container(
                           alignment: Alignment.center,
@@ -167,8 +160,6 @@ class _TrafficPolicePageSelectorState extends State<TrafficPolicePageSelector> {
           ),
           Container(
             alignment: Alignment.center,
-            // width: MediaQuery.of(context).size.width,
-            // height: MediaQuery.of(context).size.height * 0.5,
             child: SingleChildScrollView(
               scrollDirection: MediaQuery.of(context).size.width >=
                       MediaQuery.of(context).size.height

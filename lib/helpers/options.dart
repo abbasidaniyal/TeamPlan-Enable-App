@@ -1,4 +1,4 @@
-String apiKey = "<API KEY HERE>";
+
 List<String> districtsList = [
 
   "FARASKHANA",

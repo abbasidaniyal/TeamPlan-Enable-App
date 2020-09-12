@@ -1,18 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
-// import 'package:dio/dio.dart';
 
 class MainProvider extends ChangeNotifier {
-  // var http = Dio();
-
-  // String baseUrl = "https://cors-anywhere.herokuapp.com/http://51.158.68.161/staging"; //For flutter web local
-  String baseUrl = "http://51.158.68.161/staging";
+  static const String baseUrl = String.fromEnvironment("BASE_URL");
+  String apiKey = String.fromEnvironment("GOOGLE_API_KEY");
   String authToken;
 
   Future<bool> login(String username, String password) async {
-    print("Reaching");
     bool status = false;
     try {
       http.Response res = await http.post("$baseUrl/api/login",
@@ -22,23 +17,12 @@ class MainProvider extends ChangeNotifier {
             "password": password,
           }));
 
-      // print(res.toString());
-
-      // print("STATUS CODE " + res.statusCode.toString());
-      print("BODY " + res.headers.toString());
-
       if (res.statusCode != 200 && res.statusCode != 201) return false;
 
-      // print("DEBUG 1");
-      // print(res.headers["authorization"]);
       authToken = res.headers["authorization"];
-      
-      // print(authToken);
-      // print("DEBUG 2");
+
       status = true;
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
 
     return status;
   }
@@ -46,11 +30,6 @@ class MainProvider extends ChangeNotifier {
   String id;
   Future<bool> sendAccidentData(Map<String, dynamic> data) async {
     bool status = false;
-    // print("Dummy : " + isDummy.toString());
-    // if (isDummy) {
-    //   id = "ACC00XX";
-    //   return true;
-    // }
 
     try {
       http.Response res = await http.post('$baseUrl/api/accidents',
@@ -60,8 +39,6 @@ class MainProvider extends ChangeNotifier {
             'accept': '*/*',
           },
           body: json.encode(data));
-      // print(res.body);
-      // print(res.headers);
 
       if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
@@ -70,7 +47,6 @@ class MainProvider extends ChangeNotifier {
         status = true;
       }
     } catch (e) {
-      print(e);
       status = false;
     }
     return status;
@@ -78,10 +54,7 @@ class MainProvider extends ChangeNotifier {
 
   Future<bool> sendNOCData(Map<String, dynamic> data) async {
     bool status = false;
-    // if (isDummy) {
-    //   id = "NOC00XX";
-    //   return true;
-    // }
+
     try {
       http.Response res = await http.post('$baseUrl/api/nocs',
           headers: {
@@ -90,7 +63,6 @@ class MainProvider extends ChangeNotifier {
             'accept': '*/*',
           },
           body: json.encode(data));
-      print(res.body);
 
       if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
@@ -99,7 +71,6 @@ class MainProvider extends ChangeNotifier {
         status = true;
       }
     } catch (e) {
-      print(e);
       status = false;
     }
     return status;
@@ -107,10 +78,7 @@ class MainProvider extends ChangeNotifier {
 
   Future<bool> sendWaterLoggingData(Map<String, dynamic> data) async {
     bool status = false;
-    // if (isDummy) {
-    //   id = "WL00XX";
-    //   return true;
-    // }
+
     try {
       http.Response res = await http.post('$baseUrl/api/waterloggings',
           headers: {
@@ -119,7 +87,6 @@ class MainProvider extends ChangeNotifier {
             'accept': '*/*',
           },
           body: json.encode(data));
-      // print(res.body);
 
       if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
@@ -128,7 +95,6 @@ class MainProvider extends ChangeNotifier {
         status = true;
       }
     } catch (e) {
-      print(e);
       status = false;
     }
     return status;
@@ -136,10 +102,7 @@ class MainProvider extends ChangeNotifier {
 
   Future<bool> sendPotHoleData(Map<String, dynamic> data) async {
     bool status = false;
-    // if (isDummy) {
-    //   id = "PH00XX";
-    //   return true;
-    // }
+
     try {
       http.Response res = await http.post('$baseUrl/api/potholes',
           headers: {
@@ -148,7 +111,6 @@ class MainProvider extends ChangeNotifier {
             'accept': '*/*',
           },
           body: json.encode(data));
-      // print(res.body);
 
       if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
@@ -157,7 +119,6 @@ class MainProvider extends ChangeNotifier {
         status = true;
       }
     } catch (e) {
-      print(e);
       status = false;
     }
     return status;
@@ -165,10 +126,7 @@ class MainProvider extends ChangeNotifier {
 
   Future<bool> sendEnchroachmentData(Map<String, dynamic> data) async {
     bool status = false;
-    // if (isDummy) {
-    //   id = "PH00XX";
-    //   return true;
-    // }
+
     try {
       http.Response res = await http.post('$baseUrl/api/encroachments',
           headers: {
@@ -177,7 +135,6 @@ class MainProvider extends ChangeNotifier {
             'accept': '*/*',
           },
           body: json.encode(data));
-      // print(res.body);
 
       if (res.statusCode != 200 && res.statusCode != 201) {
         status = false;
@@ -186,23 +143,8 @@ class MainProvider extends ChangeNotifier {
         status = true;
       }
     } catch (e) {
-      print(e);
       status = false;
     }
     return status;
   }
-  // Future<bool> sendTrafficLightData(Map<String, dynamic> data) async {
-  //   bool status = false;
-  //   try {
-  //     http.post('$baseUrl/');
-  //   } catch (e) {}
-  //   return status;
-  // }
-  // Future<bool> sendStreetLightData(Map<String, dynamic> data) async {
-  //   bool status = false;
-  //   try {
-  //     http.post('$baseUrl/');
-  //   } catch (e) {}
-  //   return status;
-  // }
 }

@@ -6,7 +6,6 @@ class AcceptedPage extends StatelessWidget {
   AcceptedPage(this.id);
   @override
   Widget build(BuildContext context) {
-    //
     return Scaffold(
       backgroundColor: Color.fromRGBO(0, 177, 185, 1),
       body: Column(
