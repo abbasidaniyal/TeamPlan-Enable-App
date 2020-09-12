@@ -30,11 +30,9 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
       _key.currentState.save();
       MainProvider model = Provider.of(context);
       bool status = await model.sendWaterLoggingData(data);
-      // print("Status " + status.toString());
       if (status) {
         _key.currentState.reset();
         toggle();
-        // Navigator.of(context).popUntil();
         await Navigator.push(context, MaterialPageRoute(builder: (context) {
           return AcceptedPage(model.id);
         }));
@@ -64,7 +62,6 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
       }
     } else {
       toggle();
-      //THROW ERROR
     }
   }
 
@@ -80,6 +77,7 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    MainProvider model = Provider.of(context);
     return Scaffold(
       backgroundColor: Color.fromRGBO(0, 177, 185, 1),
       body: Container(
@@ -221,12 +219,10 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                     },
                     onSaved: (s) {
                       data["address"] = s["address"];
-                      data["location"] = 
-                        {
-                          "latitude": s["latitude"],
-                          "longitude": s["longiude"],
-                        }
-                      ;
+                      data["location"] = {
+                        "latitude": s["latitude"],
+                        "longitude": s["longiude"],
+                      };
                     },
                     builder: (FormFieldState<Map<String, dynamic>> state) {
                       return Container(
@@ -250,10 +246,9 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                           onTap: () async {
                             final p = await PlacesAutocomplete.show(
                               context: context,
-                              apiKey: apiKey,
+                              apiKey: model.apiKey,
                               components: [Component(Component.country, "in")],
                             ).catchError((onError) {
-                              print(onError);
                               return;
                             });
                             setState(() {
@@ -261,13 +256,12 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                             });
 
                             final geocoding = GoogleMapsPlaces(
-                              apiKey: apiKey,
+                              apiKey: model.apiKey,
                             );
 
                             PlacesDetailsResponse data = await geocoding
                                 .getDetailsByPlaceId(p?.placeId)
                                 .catchError((onError) {
-                              print(onError);
                               return;
                             });
                             Map<String, dynamic> addressData = {

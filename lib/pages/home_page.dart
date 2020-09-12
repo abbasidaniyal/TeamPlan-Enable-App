@@ -35,8 +35,6 @@ class _HomePageSelectorState extends State<HomePageSelector> {
               ),
             ],
           ),
-          // color: Colors.red,
-          // shape: CircleBorder(),
           onPressed: () {
             Navigator.push(
               context,

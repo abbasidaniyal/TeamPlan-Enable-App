@@ -31,7 +31,6 @@ class _NOCFormPageState extends State<NOCFormPage> {
     toggle();
     if (_key.currentState.validate()) {
       _key.currentState.save();
-      // print(data);
 
       data["routePoints"].add(data["end_location_geotag"]);
 
@@ -39,7 +38,6 @@ class _NOCFormPageState extends State<NOCFormPage> {
 
       MainProvider model = Provider.of(context);
       bool status = await model.sendNOCData(data);
-      // print("Status " + status.toString());
       if (status) {
         _key.currentState.reset();
         toggle();
@@ -89,6 +87,7 @@ class _NOCFormPageState extends State<NOCFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    MainProvider model = Provider.of(context);
     return Scaffold(
       backgroundColor: Color.fromRGBO(0, 177, 185, 1),
       body: Container(
@@ -380,10 +379,10 @@ class _NOCFormPageState extends State<NOCFormPage> {
                           onTap: () async {
                             final p = await PlacesAutocomplete.show(
                               context: context,
-                              apiKey: apiKey,
+                              apiKey: model.apiKey,
                               components: [Component(Component.country, "in")],
                             ).catchError((onError) {
-                              print(onError);
+                      
                               return;
                             });
                             setState(() {
@@ -391,13 +390,13 @@ class _NOCFormPageState extends State<NOCFormPage> {
                             });
 
                             final geocoding = GoogleMapsPlaces(
-                              apiKey: apiKey,
+                              apiKey: model.apiKey,
                             );
 
                             PlacesDetailsResponse data = await geocoding
                                 .getDetailsByPlaceId(p?.placeId)
                                 .catchError((onError) {
-                              print(onError);
+                      
                               return;
                             });
                             Map<String, dynamic> addressData = {
@@ -467,12 +466,12 @@ class _NOCFormPageState extends State<NOCFormPage> {
                                     onTap: () async {
                                       final p = await PlacesAutocomplete.show(
                                         context: context,
-                                        apiKey: apiKey,
+                                        apiKey: model.apiKey,
                                         components: [
                                           Component(Component.country, "in")
                                         ],
                                       ).catchError((onError) {
-                                        print(onError);
+                                
                                         return;
                                       });
                                       setState(() {
@@ -481,14 +480,14 @@ class _NOCFormPageState extends State<NOCFormPage> {
                                       });
 
                                       final geocoding = GoogleMapsPlaces(
-                                        apiKey: apiKey,
+                                        apiKey: model.apiKey,
                                       );
 
                                       PlacesDetailsResponse data =
                                           await geocoding
                                               .getDetailsByPlaceId(p?.placeId)
                                               .catchError((onError) {
-                                        print(onError);
+                                
                                         return;
                                       });
                                       Map<String, dynamic> addressData = {
@@ -552,10 +551,10 @@ class _NOCFormPageState extends State<NOCFormPage> {
                           onTap: () async {
                             final p = await PlacesAutocomplete.show(
                               context: context,
-                              apiKey: apiKey,
+                              apiKey: model.apiKey,
                               components: [Component(Component.country, "in")],
                             ).catchError((onError) {
-                              print(onError);
+                      
                               return;
                             });
                             setState(() {
@@ -563,13 +562,13 @@ class _NOCFormPageState extends State<NOCFormPage> {
                             });
 
                             final geocoding = GoogleMapsPlaces(
-                              apiKey: apiKey,
+                              apiKey: model.apiKey,
                             );
 
                             PlacesDetailsResponse data = await geocoding
                                 .getDetailsByPlaceId(p?.placeId)
                                 .catchError((onError) {
-                              print(onError);
+                      
                               return;
                             });
                             Map<String, dynamic> addressData = {

@@ -31,10 +31,7 @@ class _LoginPageSelectorState extends State<LoginPageSelector> {
           ),
         ),
       ),
-      // SizedBox(
-      //   height:
-      //       MediaQuery.of(context).orientation == Orientation.portrait ? 50 : 0,
-      // ),
+
       Container(
         width: MediaQuery.of(context).orientation == Orientation.landscape
             ? MediaQuery.of(context).size.width * 0.30
@@ -70,7 +67,6 @@ class _LoginPageSelectorState extends State<LoginPageSelector> {
             ),
           ),
           onPressed: () async {
-            // print(username.text + password.text);
 
             MainProvider model = Provider.of(context);
             bool status = await model.login(username.text, password.text);
