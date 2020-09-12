@@ -246,7 +246,7 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                           onTap: () async {
                             final p = await PlacesAutocomplete.show(
                               context: context,
-                              apiKey: model.apiKey,
+                              apiKey: MainProvider.apiKey,
                               components: [Component(Component.country, "in")],
                             ).catchError((onError) {
                               return;
@@ -256,7 +256,7 @@ class _WaterLoggingFormPageState extends State<WaterLoggingFormPage> {
                             });
 
                             final geocoding = GoogleMapsPlaces(
-                              apiKey: model.apiKey,
+                              apiKey: MainProvider.apiKey,
                             );
 
                             PlacesDetailsResponse data = await geocoding
